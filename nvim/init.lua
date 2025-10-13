@@ -88,13 +88,14 @@ require("lazy").setup({
             })
             pcall(require("telescope").load_extension, "fzf")
             local builtin = require("telescope.builtin")
-            vim.keymap.set("n", "<leader>f", builtin.find_files, {desc = "Telescope find files"})
-            vim.keymap.set("n", "<leader>/", builtin.live_grep, {desc = "Telescope live grep"})
-            vim.keymap.set("n", "<leader>w", builtin.grep_string, {desc = "Telescope grep string"})
-            vim.keymap.set("n", "<leader>gc", builtin.git_commits, {desc = "Telescope git commits"})
-            vim.keymap.set("n", "<leader>gg", builtin.git_status, {desc = "Telescope git changes"})
-            vim.keymap.set("n", "<leader>b", builtin.buffers, {desc = "Telescope buffers"})
-            vim.keymap.set("n", "<leader>h", builtin.help_tags, {desc = "Telescope help tags"})
+            vim.keymap.set("n", "<leader>f", builtin.find_files, {desc = "find files"})
+            vim.keymap.set("n", "<leader>/", builtin.live_grep, {desc = "live grep"})
+            vim.keymap.set("n", "<leader>t", builtin.treesitter, {desc = "treesitter"})
+            vim.keymap.set("n", "<leader>w", builtin.grep_string, {desc = "grep string"})
+            vim.keymap.set("n", "<leader>gc", builtin.git_commits, {desc = "git commits"})
+            vim.keymap.set("n", "<leader>gg", builtin.git_status, {desc = "git changes"})
+            vim.keymap.set("n", "<leader>b", builtin.buffers, {desc = "buffers"})
+            vim.keymap.set("n", "<leader>h", builtin.help_tags, {desc = "help tags"})
         end
     },
     { "lewis6991/gitsigns.nvim", opts = {} },
@@ -104,12 +105,21 @@ require("lazy").setup({
     },
     {
         "nvim-treesitter/nvim-treesitter", branch = 'master', lazy = false, build = ":TSUpdate",
-        opts = {
-            ensure_installed = { "c",  "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
-            auto_install = true,
-            highlight = { enable = true },
-            indent = { enable = true }
-        }
+        config = function()
+            require('nvim-treesitter.configs').setup {
+                ensure_installed = { "c",  "cpp", "lua", "python", "html", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+                highlight = { enable = true },
+                indent = { enable = true },
+                incremental_selection = {
+                    enable = true,
+                    keymaps = {
+                       init_selection = "<M-o>",
+                       node_incremental = "<M-o>",
+                       node_decremental = "<M-i>",
+                    }
+                },
+            }
+        end
     }
     },
     checker = {enabled = true}
