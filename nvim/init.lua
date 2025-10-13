@@ -70,7 +70,7 @@ vim.keymap.set('n', 'U', '<cmd>redo<CR>')
 
 require("lazy").setup({
     spec = {
-        {
+    {
         "nvim-telescope/telescope.nvim",
         branch = "0.1.x",
         dependencies = {
@@ -96,12 +96,21 @@ require("lazy").setup({
             vim.keymap.set("n", "<leader>b", builtin.buffers, {desc = "Telescope buffers"})
             vim.keymap.set("n", "<leader>h", builtin.help_tags, {desc = "Telescope help tags"})
         end
-        },
-        { "lewis6991/gitsigns.nvim", opts = {} },
-        {
-            "rose-pine/neovim", name = "rose-pine", lazy = false, priority = 1000,
-            config = function() vim.cmd([[colorscheme rose-pine-moon]]) end
+    },
+    { "lewis6991/gitsigns.nvim", opts = {} },
+    {
+        "rose-pine/neovim", name = "rose-pine", lazy = false, priority = 1000,
+        config = function() vim.cmd([[colorscheme rose-pine-moon]]) end
+    },
+    {
+        "nvim-treesitter/nvim-treesitter", branch = 'master', lazy = false, build = ":TSUpdate",
+        opts = {
+            ensure_installed = { "c",  "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+            auto_install = true,
+            highlight = { enable = true },
+            indent = { enable = true }
         }
+    }
     },
     checker = {enabled = true}
 })
