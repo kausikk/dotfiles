@@ -98,7 +98,18 @@ require("lazy").setup({
             vim.keymap.set("n", "<leader>h", builtin.help_tags, {desc = "help tags"})
         end
     },
-    { "lewis6991/gitsigns.nvim", opts = {} },
+    {
+        "lewis6991/gitsigns.nvim",
+        opts = {
+            on_attach = function()
+                local gitsigns = require('gitsigns')
+                vim.keymap.set("n", "<leader>]", gitsigns.next_hunk)
+                vim.keymap.set("n", "<leader>[", gitsigns.prev_hunk)
+                vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk_inline)
+                vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk)
+            end
+        }
+    },
     {
         "rose-pine/neovim", name = "rose-pine", lazy = false, priority = 1000,
         config = function() vim.cmd([[colorscheme rose-pine-moon]]) end
