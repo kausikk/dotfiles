@@ -111,6 +111,10 @@ require("lazy").setup({
         }
     },
     {
+        "neovim/nvim-lspconfig",
+        config = function() vim.lsp.enable('clangd') end
+    },
+    {
         "rose-pine/neovim", name = "rose-pine", lazy = false, priority = 1000,
         config = function() vim.cmd([[colorscheme rose-pine-moon]]) end
     },
@@ -118,7 +122,32 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter", branch = 'master', lazy = false, build = ":TSUpdate",
         config = function()
             require('nvim-treesitter.configs').setup {
-                ensure_installed = { "c",  "cpp", "lua", "python", "html", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+                ensure_installed = {
+                    "bash",
+                    "c",
+                    "diff",
+                    "html",
+                    "javascript",
+                    "jsdoc",
+                    "json",
+                    "jsonc",
+                    "lua",
+                    "luadoc",
+                    "luap",
+                    "markdown",
+                    "markdown_inline",
+                    "printf",
+                    "python",
+                    "query",
+                    "regex",
+                    "toml",
+                    "tsx",
+                    "typescript",
+                    "vim",
+                    "vimdoc",
+                    "xml",
+                    "yaml",
+                },
                 highlight = { enable = true },
                 indent = { enable = true },
                 incremental_selection = {
@@ -135,6 +164,3 @@ require("lazy").setup({
     },
     checker = {enabled = true}
 })
-
--- LSP
-vim.lsp.enable('clangd')
