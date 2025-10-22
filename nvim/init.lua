@@ -90,7 +90,7 @@ require("lazy").setup({
             local builtin = require("telescope.builtin")
             vim.keymap.set("n", "<leader>f", builtin.find_files, {desc = "find files"})
             vim.keymap.set("n", "<leader>/", builtin.live_grep, {desc = "live grep"})
-            vim.keymap.set("n", "<leader>t", builtin.treesitter, {desc = "treesitter"})
+            vim.keymap.set("n", "<leader>o", builtin.lsp_document_symbols, {desc = "symbols in document"})
             vim.keymap.set("n", "<leader>w", builtin.grep_string, {desc = "grep string"})
             vim.keymap.set("n", "<leader>gc", builtin.git_commits, {desc = "git commits"})
             vim.keymap.set("n", "<leader>gg", builtin.git_status, {desc = "git changes"})
@@ -103,10 +103,10 @@ require("lazy").setup({
         opts = {
             on_attach = function()
                 local gitsigns = require('gitsigns')
-                vim.keymap.set("n", "<leader>]", gitsigns.next_hunk)
-                vim.keymap.set("n", "<leader>[", gitsigns.prev_hunk)
-                vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk_inline)
-                vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk)
+                vim.keymap.set("n", "<leader>]", gitsigns.next_hunk, {desc = 'Next hunk'})
+                vim.keymap.set("n", "<leader>[", gitsigns.prev_hunk, {desc = 'Previous hunk'})
+                vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk_inline, {desc = 'Preview hunk inline'})
+                vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk, {desc = 'Reset hunk'})
             end
         }
     },
@@ -117,6 +117,10 @@ require("lazy").setup({
     {
         "rose-pine/neovim", name = "rose-pine", lazy = false, priority = 1000,
         config = function() vim.cmd([[colorscheme rose-pine-moon]]) end
+    },
+    {
+      "folke/which-key.nvim",
+      event = "VeryLazy", opts = {},
     },
     {
         "nvim-treesitter/nvim-treesitter", branch = 'master', lazy = false, build = ":TSUpdate",
