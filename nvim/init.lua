@@ -112,7 +112,10 @@ require("lazy").setup({
     },
     {
         "neovim/nvim-lspconfig",
-        config = function() vim.lsp.enable('clangd') end
+        config = function()
+            vim.lsp.enable('clangd')
+            vim.lsp.enable('texlab')
+        end
     },
     {
         "rose-pine/neovim", name = "rose-pine", lazy = false, priority = 1000,
@@ -171,6 +174,16 @@ require("lazy").setup({
                     }
                 },
             }
+        end
+    },
+    {
+        "lervag/vimtex",
+        lazy = false,
+        init = function()
+            vim.g.vimtex_view_general_viewer = "okular"
+            vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src:@line@tex"
+            vim.g.vimtex_compiler_latexmk = { out_dir = vim.env.HOME .. "/.latexmk_output" }
+            vim.g.vimtex_quickfix_autoclose_after_keystrokes = 1 
         end
     }
     },
