@@ -18,8 +18,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Line wrap
-vim.o.breakindent = true
-vim.o.wrap = false
+vim.opt.wrap = true
 
 -- Search
 vim.o.ignorecase = true
@@ -162,6 +161,7 @@ require("lazy").setup({
                     "vimdoc",
                     "xml",
                     "yaml",
+                    "latex"
                 },
                 highlight = { enable = true },
                 indent = { enable = true },
@@ -180,11 +180,16 @@ require("lazy").setup({
         "lervag/vimtex",
         lazy = false,
         init = function()
-            vim.g.vimtex_view_general_viewer = "okular"
-            vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src:@line@tex"
+            vim.g.vimtex_view_general_viewer = "sumatrapdf"
+            vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
             vim.g.vimtex_compiler_latexmk = { out_dir = vim.env.HOME .. "/.latexmk_output" }
             vim.g.vimtex_quickfix_autoclose_after_keystrokes = 1 
         end
+    },
+    {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = true
     }
     },
     checker = {enabled = true}
