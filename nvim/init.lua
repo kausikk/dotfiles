@@ -83,7 +83,10 @@ require("lazy").setup({
             require("telescope").setup({
                 -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#mapping-esc-to-quit-in-insert-mode
                 defaults = { mappings = { i = { ["<esc>"] = actions.close } } },
-                pickers = { colorscheme = { enable_preview = true } }
+                pickers = {
+                    colorscheme = { enable_preview = true },
+                    find_files = { no_ignore = true }
+                }
             })
             pcall(require("telescope").load_extension, "fzf")
             local builtin = require("telescope.builtin")
@@ -113,7 +116,6 @@ require("lazy").setup({
         "neovim/nvim-lspconfig",
         config = function()
             vim.lsp.enable('clangd')
-            vim.lsp.enable('texlab')
         end
     },
     {
@@ -161,7 +163,6 @@ require("lazy").setup({
                     "vimdoc",
                     "xml",
                     "yaml",
-                    "latex"
                 },
                 highlight = { enable = true },
                 indent = { enable = true },
