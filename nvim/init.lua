@@ -17,8 +17,18 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Navigation
+vim.keymap.set('n', 'H', '^', { remap = false, silent = true, desc = 'Start of line (non-blank)' })
+vim.keymap.set('n', 'L', '$', { remap = false, silent = true, desc = 'End of line' })
+vim.keymap.set('n', 'j', 'v:count ? "j" : "gj"', { expr = true })
+vim.keymap.set('n', 'k', 'v:count ? "k" : "gk"', { expr = true })
+vim.keymap.set('v', 'j', 'v:count ? "j" : "gj"', { expr = true })
+vim.keymap.set('v', 'k', 'v:count ? "k" : "gk"', { expr = true })
+
+
 -- Line wrap
 vim.opt.wrap = true
+vim.opt.linebreak = true
 
 -- Search
 vim.o.ignorecase = true
