@@ -113,12 +113,6 @@ require("lazy").setup({
         }
     },
     {
-        "neovim/nvim-lspconfig",
-        config = function()
-            vim.lsp.enable('clangd')
-        end
-    },
-    {
         "rose-pine/neovim", name = "rose-pine", lazy = false, priority = 1000,
         config = function() vim.cmd([[colorscheme rose-pine-moon]]) end
     },
@@ -127,11 +121,17 @@ require("lazy").setup({
         event = "VeryLazy", opts = {},
     },
     {
-       "ggandor/leap.nvim", lazy = false,
+        "smoka7/hop.nvim",
         config = function()
-            vim.keymap.set({'n', 'x', 'o'}, 's', '<Plug>(leap)')
-            vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
+            require('hop').setup({ keys = "etovxqpdygfblzhckisuran" })
+            local hop = require('hop')
+            vim.keymap.set("n", "gw", hop.hint_words)
         end
+    },
+    {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = true
     },
     {
         "nvim-treesitter/nvim-treesitter", branch = 'master', lazy = false, build = ":TSUpdate",
@@ -163,6 +163,7 @@ require("lazy").setup({
                     "vimdoc",
                     "xml",
                     "yaml",
+                    "go"
                 },
                 highlight = { enable = true },
                 indent = { enable = true },
@@ -178,19 +179,11 @@ require("lazy").setup({
         end
     },
     {
-        "lervag/vimtex",
-        lazy = false,
-        init = function()
-            vim.g.vimtex_view_general_viewer = "sumatrapdf"
-            vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
-            vim.g.vimtex_compiler_latexmk = { out_dir = vim.env.HOME .. "/.latexmk_output" }
-            vim.g.vimtex_quickfix_autoclose_after_keystrokes = 1 
+        "neovim/nvim-lspconfig",
+        config = function()
+            vim.lsp.enable('clangd')
+            vim.lsp.enable('gopls')
         end
-    },
-    {
-        'windwp/nvim-autopairs',
-        event = "InsertEnter",
-        config = true
     }
     },
     checker = {enabled = true}
