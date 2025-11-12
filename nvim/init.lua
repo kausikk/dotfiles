@@ -18,12 +18,12 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- Navigation
-vim.keymap.set('n', 'H', '^', { remap = false, silent = true, desc = 'Start of line (non-blank)' })
-vim.keymap.set('n', 'L', '$', { remap = false, silent = true, desc = 'End of line' })
-vim.keymap.set('n', 'j', 'v:count ? "j" : "gj"', { expr = true })
-vim.keymap.set('n', 'k', 'v:count ? "k" : "gk"', { expr = true })
-vim.keymap.set('v', 'j', 'v:count ? "j" : "gj"', { expr = true })
-vim.keymap.set('v', 'k', 'v:count ? "k" : "gk"', { expr = true })
+vim.keymap.set("n", "H", "^", { remap = false, silent = true, desc = "Start of line (non-blank)" })
+vim.keymap.set("n", "L", "$", { remap = false, silent = true, desc = "End of line" })
+vim.keymap.set("n", "j", 'v:count ? "j" : "gj"', { expr = true })
+vim.keymap.set("n", "k", 'v:count ? "k" : "gk"', { expr = true })
+vim.keymap.set("v", "j", 'v:count ? "j" : "gj"', { expr = true })
+vim.keymap.set("v", "k", 'v:count ? "k" : "gk"', { expr = true })
 
 
 -- Line wrap
@@ -40,16 +40,16 @@ vim.g.clipboard = "osc52"
 -- Windows
 vim.o.splitright = true
 vim.o.splitbelow = true
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
-vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
-vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
-vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Highlight when yanking (copying) text
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
   callback = function()
     vim.hl.on_yank()
   end
@@ -62,20 +62,20 @@ vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 
 -- Other
-vim.o.signcolumn = 'yes'
+vim.o.signcolumn = "yes"
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-vim.o.inccommand = 'split'
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.o.inccommand = "split"
 vim.o.cursorline = true
 vim.o.scrolloff = 10
 vim.o.confirm = true
 vim.o.number = true
-vim.o.mouse = 'a'
+vim.o.mouse = "a"
 vim.o.showmode = false
 
 -- Redo
-vim.keymap.set('n', 'U', '<cmd>redo<CR>')
+vim.keymap.set("n", "U", "<cmd>redo<CR>")
 
 require("lazy").setup({
     spec = {
@@ -114,16 +114,17 @@ require("lazy").setup({
         "lewis6991/gitsigns.nvim",
         opts = {
             on_attach = function()
-                local gitsigns = require('gitsigns')
-                vim.keymap.set("n", "<leader>]", gitsigns.next_hunk, {desc = 'Next hunk'})
-                vim.keymap.set("n", "<leader>[", gitsigns.prev_hunk, {desc = 'Previous hunk'})
-                vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk_inline, {desc = 'Preview hunk inline'})
-                vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk, {desc = 'Reset hunk'})
+                local gitsigns = require("gitsigns")
+                vim.keymap.set("n", "<leader>]", gitsigns.next_hunk, {desc = "Next hunk"})
+                vim.keymap.set("n", "<leader>[", gitsigns.prev_hunk, {desc = "Previous hunk"})
+                vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk_inline, {desc = "Preview hunk inline"})
+                vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk, {desc = "Reset hunk"})
             end
         }
     },
     {
-        "rose-pine/neovim", name = "rose-pine", lazy = false, priority = 1000,
+        "rose-pine/neovim",
+        name = "rose-pine", lazy = false, priority = 1000,
         config = function() vim.cmd([[colorscheme rose-pine-moon]]) end
     },
     {
@@ -133,20 +134,29 @@ require("lazy").setup({
     {
         "smoka7/hop.nvim",
         config = function()
-            require('hop').setup({ keys = "etovxqpdygfblzhckisuran" })
-            local hop = require('hop')
+            local hop = require("hop")
+            hop.setup({ keys = "etovxqpdygfblzhckisuran" })
             vim.keymap.set("n", "gw", hop.hint_words)
         end
     },
     {
-        'windwp/nvim-autopairs',
-        event = "InsertEnter",
-        config = true
+        "windwp/nvim-autopairs",
+        event = "InsertEnter", config = true
     },
     {
-        "nvim-treesitter/nvim-treesitter", branch = 'master', lazy = false, build = ":TSUpdate",
+        "nvim-mini/mini.files",
+        version = false,
         config = function()
-            require('nvim-treesitter.configs').setup {
+            local minif = require("mini.files")
+            minif.setup({})
+            vim.keymap.set("n", "<leader>e", minif.open, {desc = "Explore files"})
+        end
+    },
+    {
+        "nvim-treesitter/nvim-treesitter",
+        branch = "master", lazy = false, build = ":TSUpdate",
+        config = function()
+            require("nvim-treesitter.configs").setup {
                 ensure_installed = {
                     "bash",
                     "c",
@@ -191,8 +201,8 @@ require("lazy").setup({
     {
         "neovim/nvim-lspconfig",
         config = function()
-            vim.lsp.enable('clangd')
-            vim.lsp.enable('gopls')
+            vim.lsp.enable("clangd")
+            vim.lsp.enable("gopls")
         end
     }
     },
