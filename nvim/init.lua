@@ -25,7 +25,6 @@ vim.keymap.set("n", "k", 'v:count ? "k" : "gk"', { expr = true })
 vim.keymap.set("v", "j", 'v:count ? "j" : "gj"', { expr = true })
 vim.keymap.set("v", "k", 'v:count ? "k" : "gk"', { expr = true })
 
-
 -- Line wrap
 vim.opt.wrap = true
 vim.opt.linebreak = true
@@ -76,6 +75,9 @@ vim.o.showmode = false
 
 -- Redo
 vim.keymap.set("n", "U", "<cmd>redo<CR>")
+
+-- Terminal
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
 require("lazy").setup({
     spec = {
@@ -196,13 +198,6 @@ require("lazy").setup({
                     }
                 },
             }
-        end
-    },
-    {
-        "neovim/nvim-lspconfig",
-        config = function()
-            vim.lsp.enable("clangd")
-            vim.lsp.enable("gopls")
         end
     }
     },
