@@ -45,14 +45,23 @@ vim.pack.add({
 
 vim.cmd("colorscheme rose-pine-moon")
 
-require("telescope").setup({
-	defaults = { mappings = { i = { ["<esc>"] = require("telescope.actions").close }}},
+local telescope = require("telescope")
+local actions = require("telescope.actions")
+local act_state = require("telescope.actions.state")
+telescope.setup({
+	defaults = { mappings = { i = { ["<esc>"] = "close" }}},
 	pickers = {
 		colorscheme = { enable_preview = true },
 		find_files = { no_ignore = true },
-	}
+        help_tags = { -- Custom mapping to open help in vertical split :)
+            mappings = { i = { ["<CR>"] = function(prompt_bufnr)
+                actions.close(prompt_bufnr)
+                vim.cmd("vert help " .. act_state.get_selected_entry().value)
+            end }}
+        }
+    }
 })
-require("telescope").load_extension("fzf")
+telescope.load_extension("fzf")
 
 require("mini.files").setup({ mappings = { close = "<Esc>" }})
 
@@ -96,6 +105,7 @@ local gitsigns = require("gitsigns")
 local hop = require("hop")
 
 vim.keymap.set("n", "<leader>f", telescope_builtin.find_files, { desc = "Find files" })
+vim.keymap.set("n", "<leader>b", telescope_builtin.buffers, { desc = "Select buffer" })
 vim.keymap.set("n", "<leader>/", telescope_builtin.live_grep, { desc = "Live grep" })
 vim.keymap.set("n", "<leader>w", telescope_builtin.grep_string, { desc = "Grep word" })
 vim.keymap.set("n", "<leader>h", telescope_builtin.help_tags, { desc = "Help" })
@@ -110,6 +120,7 @@ vim.keymap.set("n", "<leader>[", gitsigns.prev_hunk, { desc = "Previous hunk" })
 vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "Preview hunk inline" })
 vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk, { desc = "Reset hunk" })
 vim.keymap.set("n", "gw", hop.hint_words, { desc = "Goto word" })
+
 vim.keymap.set("n", "H", "^", { remap = false, silent = true, desc = "Start of line"})
 vim.keymap.set("n", "L", "$", { remap = false, silent = true, desc = "End of line" })
 vim.keymap.set("n", "j", 'v:count ? "j" : "gj"', { expr = true })
