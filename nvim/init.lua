@@ -1,205 +1,79 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
+----------------------------------------------------------------------
+-- Plugin hooks
+----------------------------------------------------------------------
+
+vim.api.nvim_create_autocmd("PackChanged", {
+	pattern = "*telescope-fzf-native",
+	callback = function(ev)
+		local ret = vim.system({ "make" }, { cwd = ev.data.path }):wait()
+		if ret.code ~= 0 then
+			vim.notify(ret.stderr or "", vim.log.levels.ERROR)
+			return
+		end
+	end
+})
+
+----------------------------------------------------------------------
+-- Plugin setup
+----------------------------------------------------------------------
+
+vim.pack.add({
+	{ src = "https://github.com/rose-pine/neovim", name = "rose-pine" },
+	{ src = "https://github.com/nvim-lua/plenary.nvim", name = "plenary" },
+	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim", name = "telescope-fzf-native" },
+	{ src = "https://github.com/nvim-telescope/telescope.nvim", name = "telescope" },
+	{ src = "https://github.com/lewis6991/gitsigns.nvim", name = "gitsigns" },
+})
+
+-- Colorscheme
+vim.cmd("colorscheme rose-pine-moon")
+
+-- Telescope
+local telescope = require('telescope')
+telescope.setup({
+	defaults = { mappings = { i = { ["<esc>"] = require("telescope.actions").close }}},
+	pickers = {
+		colorscheme = { enable_preview = true },
+		find_files = { no_ignore = true },
+	}
+})
+telescope.load_extension("fzf")
+
+----------------------------------------------------------------------
+-- Options and keymaps
+----------------------------------------------------------------------
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- Navigation
-vim.keymap.set("n", "H", "^", { remap = false, silent = true, desc = "Start of line (non-blank)" })
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.smarttab = true
+vim.opt.smartindent = true
+
+local telescope_builtin = require("telescope.builtin")
+local gitsigns = require("gitsigns")
+
+vim.keymap.set("n", "<leader>f", telescope_builtin.find_files, { desc = "Find files" })
+vim.keymap.set("n", "<leader>/", telescope_builtin.live_grep, { desc = "Live grep" })
+vim.keymap.set("n", "<leader>w", telescope_builtin.grep_string, { desc = "Grep word" })
+vim.keymap.set("n", "<leader>h", telescope_builtin.help_tags, { desc = "Help" })
+vim.keymap.set("n", "<leader>gc", telescope_builtin.git_commits, { desc = "Git commits" })
+vim.keymap.set("n", "<leader>gg", telescope_builtin.git_status, { desc = "Git changes" })
+vim.keymap.set("n", "H", "^", { remap = false, silent = true, desc = "Start of line"})
 vim.keymap.set("n", "L", "$", { remap = false, silent = true, desc = "End of line" })
 vim.keymap.set("n", "j", 'v:count ? "j" : "gj"', { expr = true })
-vim.keymap.set("n", "k", 'v:count ? "k" : "gk"', { expr = true })
 vim.keymap.set("v", "j", 'v:count ? "j" : "gj"', { expr = true })
+vim.keymap.set("n", "k", 'v:count ? "k" : "gk"', { expr = true })
 vim.keymap.set("v", "k", 'v:count ? "k" : "gk"', { expr = true })
-
--- Line wrap
-vim.opt.wrap = true
-vim.opt.linebreak = true
-
--- Search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
--- Clipboard
-vim.g.clipboard = "osc52"
-
--- Windows
-vim.o.splitright = true
-vim.o.splitbelow = true
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
-
--- Highlight when yanking (copying) text
-vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-  callback = function()
-    vim.hl.on_yank()
-  end
-})
-
--- Indent
-vim.o.expandtab = true
-vim.o.smartindent = true
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
-
--- Other
-vim.o.signcolumn = "yes"
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-vim.o.inccommand = "split"
-vim.o.cursorline = true
-vim.o.scrolloff = 10
-vim.o.confirm = true
-vim.o.number = true
-vim.o.mouse = "a"
-vim.o.showmode = false
-
--- Redo
-vim.keymap.set("n", "U", "<cmd>redo<CR>")
-
--- Terminal
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
-
-require("lazy").setup({
-    spec = {
-    {
-        "nvim-telescope/telescope.nvim",
-        branch = "0.1.x",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }
-        },
-        config = function()
-            -- https://www.lazyvim.org/extras/editor/telescope#telescope-fzf-nativenvim
-            -- https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua#L361
-            local actions = require("telescope.actions")
-            require("telescope").setup({
-                -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#mapping-esc-to-quit-in-insert-mode
-                defaults = { mappings = { i = { ["<esc>"] = actions.close } } },
-                pickers = {
-                    colorscheme = { enable_preview = true },
-                    find_files = { no_ignore = true }
-                }
-            })
-            pcall(require("telescope").load_extension, "fzf")
-            local builtin = require("telescope.builtin")
-            vim.keymap.set("n", "<leader>f", builtin.find_files, {desc = "find files"})
-            vim.keymap.set("n", "<leader>/", builtin.live_grep, {desc = "live grep"})
-            vim.keymap.set("n", "<leader>o", builtin.lsp_document_symbols, {desc = "symbols in document"})
-            vim.keymap.set("n", "<leader>w", builtin.grep_string, {desc = "grep string"})
-            vim.keymap.set("n", "<leader>gc", builtin.git_commits, {desc = "git commits"})
-            vim.keymap.set("n", "<leader>gg", builtin.git_status, {desc = "git changes"})
-            vim.keymap.set("n", "<leader>b", builtin.buffers, {desc = "buffers"})
-            vim.keymap.set("n", "<leader>h", builtin.help_tags, {desc = "help tags"})
-        end
-    },
-    {
-        "lewis6991/gitsigns.nvim",
-        opts = {
-            on_attach = function()
-                local gitsigns = require("gitsigns")
-                vim.keymap.set("n", "<leader>]", gitsigns.next_hunk, {desc = "Next hunk"})
-                vim.keymap.set("n", "<leader>[", gitsigns.prev_hunk, {desc = "Previous hunk"})
-                vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk_inline, {desc = "Preview hunk inline"})
-                vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk, {desc = "Reset hunk"})
-            end
-        }
-    },
-    {
-        "rose-pine/neovim",
-        name = "rose-pine", lazy = false, priority = 1000,
-        config = function() vim.cmd([[colorscheme rose-pine-moon]]) end
-    },
-    {
-        "folke/which-key.nvim",
-        event = "VeryLazy", opts = {},
-    },
-    {
-        "smoka7/hop.nvim",
-        config = function()
-            local hop = require("hop")
-            hop.setup({ keys = "etovxqpdygfblzhckisuran" })
-            vim.keymap.set("n", "gw", hop.hint_words)
-        end
-    },
-    {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter", config = true
-    },
-    {
-        "nvim-mini/mini.files",
-        version = false,
-        config = function()
-            local minif = require("mini.files")
-            minif.setup({})
-            vim.keymap.set("n", "<leader>e", minif.open, {desc = "Explore files"})
-        end
-    },
-    {
-        "nvim-treesitter/nvim-treesitter",
-        branch = "master", lazy = false, build = ":TSUpdate",
-        config = function()
-            require("nvim-treesitter.configs").setup {
-                ensure_installed = {
-                    "bash",
-                    "c",
-                    "cpp",
-                    "diff",
-                    "html",
-                    "javascript",
-                    "jsdoc",
-                    "json",
-                    "jsonc",
-                    "lua",
-                    "luadoc",
-                    "luap",
-                    "markdown",
-                    "markdown_inline",
-                    "printf",
-                    "python",
-                    "query",
-                    "regex",
-                    "toml",
-                    "tsx",
-                    "typescript",
-                    "vim",
-                    "vimdoc",
-                    "xml",
-                    "yaml",
-                    "go"
-                },
-                highlight = { enable = true },
-                indent = { enable = true },
-                incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                       init_selection = "<M-o>",
-                       node_incremental = "<M-o>",
-                       node_decremental = "<M-i>",
-                    }
-                },
-            }
-        end
-    }
-    },
-    checker = {enabled = true}
-})
+vim.keymap.set("n", "U", "<cmd>redo<CR>", { desc = "Redo"})
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+vim.keymap.set("n", "<leader>]", gitsigns.next_hunk, { desc = "Next hunk" })
+vim.keymap.set("n", "<leader>[", gitsigns.prev_hunk, { desc = "Previous hunk" })
+vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "Preview hunk inline" })
+vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk, { desc = "Reset hunk" })
