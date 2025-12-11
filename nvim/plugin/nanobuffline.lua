@@ -4,7 +4,7 @@ vim.g.nanobuffline_status = ""
 vim.opt.statusline = " %{%g:nanobuffline_status%}%=%l,%v nbl by krkm <3"
 vim.opt.laststatus = 3
 
-function M.generate_status()
+function M.generate_status(_)
 	local status = { "" }
 	for _, buf_id in ipairs(vim.api.nvim_list_bufs()) do
 		if vim.fn.buflisted(buf_id) ~= 1 then
@@ -26,10 +26,6 @@ function M.generate_status()
 	vim.g.nanobuffline_status = table.concat(status, "")
 end
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-	callback = function(ev)
-		M.generate_status()
-	end
-})
+vim.api.nvim_create_autocmd("BufEnter", { callback = M.generate_status })
 
 return M
