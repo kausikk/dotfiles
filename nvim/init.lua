@@ -5,7 +5,7 @@
 vim.api.nvim_create_autocmd("PackChanged", {
 	pattern = "*telescope-fzf-native",
 	callback = function(ev)
-        if ev.data.kind == "delete" then return end
+		if ev.data.kind == "delete" then return end
 		local ret = vim.system({ "make" }, { cwd = ev.data.path }):wait()
 		if ret.code ~= 0 then
 			vim.notify(ret.stderr or "fzf build error", vim.log.levels.ERROR)
@@ -17,14 +17,14 @@ vim.api.nvim_create_autocmd("PackChanged", {
 vim.api.nvim_create_autocmd("PackChanged", {
 	pattern = "*nvim-treesitter",
 	callback = function(ev)
-        if ev.data.kind == "delete" then return end
-        vim.cmd.packadd("nvim-treesitter")
-        vim.cmd.TSUpdate()
-    end
+		if ev.data.kind == "delete" then return end
+		vim.cmd.packadd("nvim-treesitter")
+		vim.cmd.TSUpdate()
+	end
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-    callback = function() vim.hl.on_yank() end
+	callback = function() vim.hl.on_yank() end
 })
 
 ----------------------------------------------------------------------
@@ -36,11 +36,12 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-lua/plenary.nvim", name = "plenary" },
 	{ src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim", name = "telescope-fzf-native" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim", name = "telescope" },
+	{ src = "https://github.com/smoka7/hop.nvim", name = "hop" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", name = "nvim-treesitter" },
 	{ src = "https://github.com/nvim-mini/mini.files", name = "mini.files" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim", name = "gitsigns" },
-	{ src = "https://github.com/smoka7/hop.nvim", name = "hop" },
 	{ src = "https://github.com/windwp/nvim-autopairs", name = "nvim-autopairs" },
+	{ src = "https://github.com/NMAC427/guess-indent.nvim", name = "guess-indent" },
 })
 
 vim.cmd("colorscheme rose-pine-moon")
@@ -53,34 +54,37 @@ telescope.setup({
 	pickers = {
 		colorscheme = { enable_preview = true },
 		find_files = { no_ignore = true },
-        help_tags = { -- Custom mapping to open help in vertical split :)
-            mappings = { i = { ["<CR>"] = function(prompt_bufnr)
-                actions.close(prompt_bufnr)
-                vim.cmd("vert help " .. act_state.get_selected_entry().value)
-            end }}
-        }
-    }
+		help_tags = {
+			-- Open help in vertical split! Based on a Telescope configuration recipe for cd.
+			mappings = { i = { ["<CR>"] = function(prompt_bufnr)
+				actions.close(prompt_bufnr)
+				vim.cmd("vert rightb help " .. act_state.get_selected_entry().value)
+			end }}
+		}
+	}
 })
 telescope.load_extension("fzf")
 
 require("mini.files").setup({ mappings = { close = "<Esc>" }})
 
 require("nvim-treesitter.configs").setup({
-    ensure_installed = {
-        "bash", "c", "cpp", "diff", "html", "javascript",
-        "jsdoc", "json", "jsonc", "lua", "luadoc", "luap",
-        "markdown", "markdown_inline", "printf", "python",
-        "query", "regex", "toml", "tsx", "typescript", "vim",
-        "vimdoc", "xml", "yaml", "go"
-    },
-    highlight = { enable = true },
-    indent = { enable = true },
-    incremental_selection = { enable = true }
+	ensure_installed = {
+		"bash", "c", "cpp", "diff", "html", "javascript",
+		"jsdoc", "json", "jsonc", "lua", "luadoc", "luap",
+		"markdown", "markdown_inline", "printf", "python",
+		"query", "regex", "toml", "tsx", "typescript", "vim",
+		"vimdoc", "xml", "yaml", "go"
+	},
+	highlight = { enable = true },
+	indent = { enable = true },
+	incremental_selection = { enable = true }
 })
 
 require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 
 require("nvim-autopairs").setup({})
+
+require("guess-indent").setup({})
 
 ----------------------------------------------------------------------
 -- Options and keymaps
@@ -90,13 +94,9 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
-vim.opt.expandtab = true
-vim.opt.smarttab = true
-vim.opt.smartindent = true
 vim.opt.number = true
 vim.opt.signcolumn = "yes"
+vim.opt.scroll = 20
 
 local telescope_builtin = require("telescope.builtin")
 local minif = require("mini.files")
