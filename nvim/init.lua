@@ -84,7 +84,7 @@ require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 
 require("nvim-autopairs").setup({})
 
-require("guess-indent").setup({})
+require("guess-indent").setup({ on_tab_options = { ["tabstop"] = 4, ["shiftwidth"] = 4 }})
 
 ----------------------------------------------------------------------
 -- Options and keymaps
@@ -92,14 +92,14 @@ require("guess-indent").setup({})
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.opt.tabstop = 4
 vim.opt.number = true
 vim.opt.signcolumn = "yes"
 vim.opt.scroll = 20
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.inccommand = "nosplit"
-vim.opt.statusline = ""
+vim.opt.list = true
+vim.opt.listchars = { tab = '. ' }
 
 local telescope_builtin = require("telescope.builtin")
 local minif = require("mini.files")
@@ -107,7 +107,6 @@ local treesitter_inc = require("nvim-treesitter.incremental_selection")
 local gitsigns = require("gitsigns")
 local hop = require("hop")
 vim.keymap.set("n", "<leader>f", telescope_builtin.find_files, { desc = "Find files" })
-vim.keymap.set("n", "<leader>b", telescope_builtin.buffers, { desc = "Select buffer" })
 vim.keymap.set("n", "<leader>/", telescope_builtin.live_grep, { desc = "Live grep" })
 vim.keymap.set("n", "<leader>w", telescope_builtin.grep_string, { desc = "Grep word" })
 vim.keymap.set("n", "<leader>h", telescope_builtin.help_tags, { desc = "Help" })
@@ -135,3 +134,5 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 vim.keymap.set("n", "U", "<cmd>redo<CR>", { desc = "Redo"})
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlight" })
+vim.keymap.set("n", "<Tab>", "<cmd>bn<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<S-Tab>", "<cmd>bp<CR>", { desc = "Previous buffer" })
