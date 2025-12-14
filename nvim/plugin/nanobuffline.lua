@@ -8,7 +8,7 @@ buffers = {}
 names = {}
 columns = {}
 lastmark = -1
-ns_id = vim.api.nvim_create_namespace("_nbl_")
+ns_id = vim.api.nvim_create_namespace("_nbl")
 
 _change_buffer = function(ev)
 	local ibuf = 0 
@@ -22,12 +22,16 @@ _change_buffer = function(ev)
 		return
 	end
 	vim.api.nvim_buf_del_extmark(nbl_buf, ns_id, lastmark)
-	local col = columns[ibuf] - #names[ibuf] + 2
+	local col = 2
+	if ibuf > 1 then
+		col = columns[ibuf - 1] + 2
+	end
 	lastmark = vim.api.nvim_buf_set_extmark(
 		nbl_buf, ns_id, 0, col, { end_col = columns[ibuf], hl_group = "Error" }
 	)
 	local row = 1
 	for _, win in ipairs(vim.fn.win_findbuf(nbl_buf)) do
+		-- Required to auto scroll win so that current buffer always visible
 		vim.api.nvim_win_set_cursor(win, { row, col })
 	end
 end
@@ -89,7 +93,7 @@ _window = function()
 		vim.api.nvim_buf_set_name(nbl_buf, "_nbl_")
 		vim.bo[nbl_buf].readonly = true
 	end
-	-- This fails when doing :%bd or :%bw, idk why, so wrap in pcall
+	-- This fails when doing :%bd or :%bw, idk fix, so wrap in pcall
 	local res, win = pcall(vim.api.nvim_open_win, nbl_buf, false, {
 		row = 0, col = 0, relative = "laststatus", height = 1,
 		width = vim.o.columns - 20, style = "minimal"
