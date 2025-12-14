@@ -3,7 +3,7 @@ if _G.nbl_loaded then
 end
 _G.nbl_loaded = true
 
-local M = { buf = -1, lastbuff = "", lastmark = -1, ns_id = -1 }
+local M = { buf = -1, lastmark = -1, ns_id = vim.api.nvim_create_namespace("_nbl") }
 
 M.list_buffers = function(_)
 	if M.buf == -1 or not vim.api.nvim_buf_is_valid(M.buf) then
@@ -15,8 +15,8 @@ M.list_buffers = function(_)
 		M.nbl()
 		return
 	end
-	local buffers = {}
-	local curr_col = 0
+	local buffers = { "  " }
+	local curr_col = 2
 	local hl_start = 0
 	local hl_end = 0
 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -31,9 +31,9 @@ M.list_buffers = function(_)
 		end
 		if buf == vim.api.nvim_get_current_buf() then
 			hl_start = curr_col
-			hl_end = hl_start + #name + 2
+			hl_end = hl_start + #name
 		end
-		table.insert(buffers, "  " .. name)
+		table.insert(buffers, name .. "  ")
 		curr_col = curr_col + #name + 2
 		::next_iter::
 	end
@@ -42,8 +42,15 @@ M.list_buffers = function(_)
 	if hl_end ~= hl_start then
 		vim.api.nvim_buf_del_extmark(M.buf, M.ns_id, M.lastmark)
 		M.lastmark = vim.api.nvim_buf_set_extmark(
-			M.buf, M.ns_id, 0, hl_start, { end_col = hl_end, hl_group = "Error"
-		})
+			M.buf, M.ns_id, 0, hl_start,
+			{ end_col = hl_end, hl_group = "Error" }
+		)
+		for _, win in ipairs(vim.fn.win_findbuf(M.buf)) do
+			local pos = {}
+			table.insert(pos, 1)
+			table.insert(pos, hl_start)
+			vim.api.nvim_win_set_cursor(win, pos)
+		end
 	end
 	vim.bo[M.buf].readonly = true
 end
@@ -65,14 +72,14 @@ M.nbl = function()
 		vim.bo[M.buf].filetype = "_nbl"
 	end
 	local win = vim.api.nvim_open_win(M.buf, false, {
-		row = 0, col = 0, relative = "laststatus", height = 1, width = 200, style = "minimal"
+		row = 0, col = 0, relative = "laststatus", height = 1,
+		width = vim.o.columns, style = "minimal"
 	})
 	vim.wo[win].winfixheight = true
 	vim.wo[win].winfixbuf = true
 	M.list_buffers(nil)
 end
 
-M.ns_id = vim.api.nvim_create_namespace("_nbl")
 vim.api.nvim_create_user_command("Nbl", M.nbl, { desc = "View open buffers in a small window" })
 vim.api.nvim_create_autocmd("BufEnter", { callback = M.list_buffers })
 
