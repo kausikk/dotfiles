@@ -67,17 +67,12 @@ telescope.load_extension("fzf")
 
 require("mini.files").setup({ mappings = { close = "<Esc>" }})
 
-require("nvim-treesitter.configs").setup({
-	ensure_installed = {
-		"bash", "c", "cpp", "diff", "html", "javascript",
-		"jsdoc", "json", "jsonc", "lua", "luadoc", "luap",
-		"markdown", "markdown_inline", "printf", "python",
-		"query", "regex", "toml", "tsx", "typescript", "vim",
-		"vimdoc", "xml", "yaml", "go"
-	},
-	highlight = { enable = true },
-	indent = { enable = true },
-	incremental_selection = { enable = true }
+require("nvim-treesitter").install({
+	"bash", "c", "cpp", "diff", "html", "javascript",
+	"jsdoc", "json", "jsonc", "lua", "luadoc", "luap",
+	"markdown", "markdown_inline", "printf", "python",
+	"query", "regex", "toml", "tsx", "typescript", "vim",
+	"vimdoc", "xml", "yaml", "go"
 })
 
 require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
@@ -104,7 +99,6 @@ vim.opt.laststatus = 3
 
 local telescope_builtin = require("telescope.builtin")
 local minif = require("mini.files")
-local treesitter_inc = require("nvim-treesitter.incremental_selection")
 local gitsigns = require("gitsigns")
 local hop = require("hop")
 vim.keymap.set("n", "<leader>f", telescope_builtin.find_files, { desc = "Find files" })
@@ -115,9 +109,6 @@ vim.keymap.set("n", "<leader>h", telescope_builtin.help_tags, { desc = "Help" })
 vim.keymap.set("n", "<leader>gc", telescope_builtin.git_commits, { desc = "Git commits" })
 vim.keymap.set("n", "<leader>gg", telescope_builtin.git_status, { desc = "Git changes" })
 vim.keymap.set("n", "<leader>e", minif.open, { desc = "Explore files" })
-vim.keymap.set("n", "<M-o>", treesitter_inc.init_selection, { desc = "Start node selection" })
-vim.keymap.set("x", "<M-o>", treesitter_inc.node_incremental, { desc = "Expand node selection" })
-vim.keymap.set("x", "<M-i>", treesitter_inc.node_decremental, { desc = "Shrink node selection" })
 vim.keymap.set("n", "<leader>]", gitsigns.next_hunk, { desc = "Next hunk" })
 vim.keymap.set("n", "<leader>[", gitsigns.prev_hunk, { desc = "Previous hunk" })
 vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "Preview hunk inline" })

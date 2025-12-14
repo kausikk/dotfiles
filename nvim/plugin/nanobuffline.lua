@@ -59,7 +59,7 @@ _list_buffer = function(ev)
 end
 
 _unlist_buffer = function(ev)
-	if vim.fn.buflisted(ev.buf) ~= 1 then
+	if vim.fn.buflisted(ev.buf) ~= 1 and vim.bo[ev.buf].buftype ~= "help" then
 		return
 	end
 	_window()
