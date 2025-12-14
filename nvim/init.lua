@@ -100,6 +100,7 @@ vim.opt.smartcase = true
 vim.opt.inccommand = "nosplit"
 vim.opt.list = true
 vim.opt.listchars = { tab = '. ' }
+vim.opt.laststatus = 3
 
 local telescope_builtin = require("telescope.builtin")
 local minif = require("mini.files")
@@ -107,6 +108,7 @@ local treesitter_inc = require("nvim-treesitter.incremental_selection")
 local gitsigns = require("gitsigns")
 local hop = require("hop")
 vim.keymap.set("n", "<leader>f", telescope_builtin.find_files, { desc = "Find files" })
+vim.keymap.set("n", "<leader>b", telescope_builtin.buffers, { desc = "Select buffer" })
 vim.keymap.set("n", "<leader>/", telescope_builtin.live_grep, { desc = "Live grep" })
 vim.keymap.set("n", "<leader>w", telescope_builtin.grep_string, { desc = "Grep word" })
 vim.keymap.set("n", "<leader>h", telescope_builtin.help_tags, { desc = "Help" })
@@ -120,7 +122,7 @@ vim.keymap.set("n", "<leader>]", gitsigns.next_hunk, { desc = "Next hunk" })
 vim.keymap.set("n", "<leader>[", gitsigns.prev_hunk, { desc = "Previous hunk" })
 vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "Preview hunk inline" })
 vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk, { desc = "Reset hunk" })
-vim.keymap.set("n", "gw", hop.hint_words, { desc = "Goto word" })
+vim.keymap.set("n", "gw", function() hop.hint_words({ multi_windows = true }) end, { desc = "Goto word" })
 vim.keymap.set("n", "H", "^", { remap = false, silent = true, desc = "Start of line"})
 vim.keymap.set("n", "L", "$", { remap = false, silent = true, desc = "End of line" })
 vim.keymap.set("n", "j", 'v:count ? "j" : "gj"', { expr = true })

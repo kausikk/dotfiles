@@ -1,31 +1,79 @@
-local M = {}
+if _G.nbl_loaded then
+	return
+end
+_G.nbl_loaded = true
 
-vim.g.nanobuffline_status = ""
-vim.opt.statusline = " %{%g:nanobuffline_status%}%=%l,%v nbl by krkm <3"
-vim.opt.laststatus = 3
+local M = { buf = -1, lastmark = -1, ns_id = -1 }
 
-function M.generate_status(_)
-	local status = { "" }
-	for _, buf_id in ipairs(vim.api.nvim_list_bufs()) do
-		if vim.fn.buflisted(buf_id) ~= 1 then
+M.list_buffers = function(_)
+	if M.buf == -1 then
+		return
+	end
+	if not vim.api.nvim_buf_is_valid(M.buf) then
+		M.buf = -1
+		return
+	end
+	if vim.bo[M.buf].filetype ~= "_nbl" then
+		M.buf = -1
+		return
+	end
+	local buffers = {}
+	local curr_col = 0
+	local hl_start = 0
+	local hl_end = 0
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if vim.fn.buflisted(buf) ~= 1 then
 			goto next_iter
 		end
-		local name = vim.api.nvim_buf_get_name(buf_id)
+		local name = vim.api.nvim_buf_get_name(buf)
 		if name == "" then
 			name = "no name"
 		else
 			name = vim.fn.fnamemodify(name, ":t")
 		end
-		if buf_id == vim.api.nvim_get_current_buf() then
-			table.insert(status, " %#Label#" .. name .. "%*")
-		else
-			table.insert(status, " " .. name)
+		if buf == vim.api.nvim_get_current_buf() then
+			hl_start = curr_col
+			hl_end = hl_start + #name + 1
 		end
+		table.insert(buffers, " " .. name)
+		curr_col = curr_col + #name + 1
 		::next_iter::
 	end
-	vim.g.nanobuffline_status = table.concat(status, "")
+	vim.bo[M.buf].readonly = false
+	vim.api.nvim_buf_set_lines(M.buf, 0, 1, false, { table.concat(buffers, "") })
+	if hl_end ~= hl_start then
+		vim.api.nvim_buf_del_extmark(M.buf, M.ns_id, M.lastmark)
+		M.lastmark = vim.api.nvim_buf_set_extmark(M.buf, M.ns_id, 0, hl_start, { end_col = hl_end, hl_group = "Label" })
+	end
+	vim.bo[M.buf].readonly = true
 end
 
-vim.api.nvim_create_autocmd("BufEnter", { callback = M.generate_status })
+M.nbl = function()
+	if not vim.api.nvim_buf_is_valid(M.buf) then
+		M.buf = -1
+	elseif M.buf ~= -1 then
+		if vim.bo[M.buf].filetype ~= "_nbl" then
+			M.buf = -1
+		end
+	end
+	if M.buf == -1 then
+		M.buf = vim.api.nvim_create_buf(false, true)
+		if M.buf == 0 then
+			vim.notify("failed to create nbl", vim.log.levels.ERROR)
+			M.buf = -1
+			return
+		end
+		vim.bo[M.buf].readonly = true
+		vim.bo[M.buf].filetype = "_nbl"
+	end
+	local win = vim.api.nvim_open_win(M.buf, false, {
+		row = 0, col = 0, relative = "laststatus", height = 1, width = 200, style = "minimal"
+	})
+	vim.wo[win].winfixheight = true
+	vim.wo[win].winfixbuf = true
+	M.list_buffers(nil)
+end
 
-return M
+M.ns_id = vim.api.nvim_create_namespace("_nbl")
+vim.api.nvim_create_user_command("Nbl", M.nbl, { desc = "View open buffers in a small window" })
+vim.api.nvim_create_autocmd("BufEnter", { callback = M.list_buffers })
