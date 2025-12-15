@@ -23,6 +23,21 @@ vim.api.nvim_create_autocmd("PackChanged", {
 	end
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function(ev)
+		-- from MeanderingProgrammer/treesitter-modules.nvim, <3
+		local filetype = ev.match
+		local lang = vim.treesitter.language.get_lang(filetype) or filetype
+		if not vim.treesitter.language.add(lang) then
+			return
+		end
+		vim.wo.foldmethod = 'expr'
+		vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+		vim.treesitter.start(ev.buf, lang)
+		vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+	end
+})
+
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function() vim.hl.on_yank() end
 })
@@ -43,6 +58,7 @@ vim.pack.add({
 	{ src = "https://github.com/windwp/nvim-autopairs", name = "nvim-autopairs" },
 	{ src = "https://github.com/NMAC427/guess-indent.nvim", name = "guess-indent" },
 	{ src = "https://github.com/kausikk/nanobufferline", name = "nanobufferline" },
+	{ src = "https://github.com/MeanderingProgrammer/treesitter-modules.nvim", name = "treesitter-modules" },
 })
 
 vim.cmd("colorscheme rose-pine-moon")
@@ -76,6 +92,20 @@ require("nvim-treesitter").install({
 	"vimdoc", "xml", "yaml", "go"
 })
 
+-- Wrappers for treesitter-modules so that keymaps only need to be
+-- set once. Not necessarily the best way to do this, but I like
+-- setting my keymaps in one place.
+local ts_select = require("treesitter-modules.lib.selection")
+function ts_wrap(func)
+	local buf = vim.api.nvim_get_current_buf()
+	local filetype = vim.api.nvim_get_option_value("filetype", { buf = buf })
+	local lang = vim.treesitter.language.get_lang(filetype)
+	func(buf, lang)
+end
+function init_selection() ts_wrap(ts_select.init_selection) end
+function node_incremental() ts_wrap(ts_select.node_incremental) end
+function node_decremental () ts_wrap(ts_select.node_decremental) end
+
 require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 
 require("nvim-autopairs").setup({})
@@ -97,6 +127,7 @@ vim.opt.inccommand = "nosplit"
 vim.opt.list = true
 vim.opt.listchars = { tab = '. ' }
 vim.opt.laststatus = 3
+vim.opt.foldlevel = 99
 
 local telescope_builtin = require("telescope.builtin")
 local minif = require("mini.files")
@@ -110,6 +141,9 @@ vim.keymap.set("n", "<leader>h", telescope_builtin.help_tags, { desc = "Help" })
 vim.keymap.set("n", "<leader>gc", telescope_builtin.git_commits, { desc = "Git commits" })
 vim.keymap.set("n", "<leader>gg", telescope_builtin.git_status, { desc = "Git changes" })
 vim.keymap.set("n", "<leader>e", minif.open, { desc = "Explore files" })
+vim.keymap.set("n", "<M-o>", init_selection, { desc = "Start node selection" })
+vim.keymap.set("x", "<M-o>", node_incremental, { desc = "Expand node selection" })
+vim.keymap.set("x", "<M-i>", node_decremental, { desc = "Shrink node selection" })
 vim.keymap.set("n", "<leader>]", gitsigns.next_hunk, { desc = "Next hunk" })
 vim.keymap.set("n", "<leader>[", gitsigns.prev_hunk, { desc = "Previous hunk" })
 vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk_inline, { desc = "Preview hunk inline" })

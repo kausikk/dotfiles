@@ -43,6 +43,10 @@
     "telescope-fzf-native": {
       "rev": "6fea601bd2b694c6f2ae08a6c6fab14930c60e2c",
       "src": "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
+    },
+    "treesitter-modules": {
+      "rev": "feda026577576014e4627204309faab3c814e378",
+      "src": "https://github.com/MeanderingProgrammer/treesitter-modules.nvim"
     }
   }
 }
