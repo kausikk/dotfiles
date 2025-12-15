@@ -1,0 +1,11 @@
+## nvim
+
+### Dependencies
+
+- neovim >= 0.12
+- [tree-sitter-cli](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md)
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
+- build tools (make + c compiler)
+    - mac: [xcode cli tools](https://developer.apple.com/documentation/xcode/installing-the-command-line-tools/)
+    - linux: build-essential
+    - windows: [mingw-w64](https://www.mingw-w64.org/)
