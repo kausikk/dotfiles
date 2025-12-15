@@ -16,6 +16,10 @@
       "rev": "22c64f010eef047ed270e29e7cc266cd4740787e",
       "src": "https://github.com/nvim-mini/mini.files"
     },
+    "nanobufferline": {
+      "rev": "f0bac3f2c09e177707b5c5f0105b91023a5d117d",
+      "src": "https://github.com/kausikk/nanobufferline"
+    },
     "nvim-autopairs": {
       "rev": "d9e44e54384e5b0f3536339c65484f2e41b528e3",
       "src": "https://github.com/windwp/nvim-autopairs"

@@ -42,6 +42,7 @@ vim.pack.add({
 	{ src = "https://github.com/lewis6991/gitsigns.nvim", name = "gitsigns" },
 	{ src = "https://github.com/windwp/nvim-autopairs", name = "nvim-autopairs" },
 	{ src = "https://github.com/NMAC427/guess-indent.nvim", name = "guess-indent" },
+	{ src = "https://github.com/kausikk/nanobufferline", name = "nanobufferline" },
 })
 
 vim.cmd("colorscheme rose-pine-moon")
