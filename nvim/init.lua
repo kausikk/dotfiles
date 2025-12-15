@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------
--- Autocmds (must be created before calling vim.pack.add)
+-- Autocmds
 ----------------------------------------------------------------------
 
 vim.api.nvim_create_autocmd("PackChanged", {
