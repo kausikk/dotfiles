@@ -17,15 +17,15 @@
       "src": "https://github.com/nvim-mini/mini.files"
     },
     "nanobufferline": {
-      "rev": "100bc00698a5bc553ec39f3c3ca9a65bcf78cd68",
+      "rev": "b71259aafd5173ac92d218e31e614b2622c0695c",
       "src": "https://github.com/kausikk/nanobufferline"
     },
     "nvim-autopairs": {
-      "rev": "d9e44e54384e5b0f3536339c65484f2e41b528e3",
+      "rev": "c2a0dd0d931d0fb07665e1fedb1ea688da3b80b4",
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-treesitter": {
-      "rev": "d3218d988f72ed34414959c9ccd802d393432d6e",
+      "rev": "4fc09bee78e91bf4ba471cdab4bf9dfa37fde51c",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "plenary": {
@@ -37,7 +37,7 @@
       "src": "https://github.com/rose-pine/neovim"
     },
     "telescope": {
-      "rev": "e69b434b968a33815e2f02a5c7bd7b8dd4c7d4b2",
+      "rev": "3d757e586ff0bfc85bdb7b46c9d3d932147a0cde",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "telescope-fzf-native": {
