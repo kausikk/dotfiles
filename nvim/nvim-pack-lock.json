@@ -1,7 +1,7 @@
 {
   "plugins": {
     "gitsigns": {
-      "rev": "5813e4878748805f1518cee7abb50fd7205a3a48",
+      "rev": "bf77caa5da671f5bab16e4792711d5aa288e8db0",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "guess-indent": {
@@ -25,7 +25,7 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-treesitter": {
-      "rev": "6e42d823ce0a5a76180c473c119c7677738a09d1",
+      "rev": "36fcb4a4238928f0b627e1ab84ade0acc1facc2c",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "plenary": {
@@ -37,7 +37,7 @@
       "src": "https://github.com/rose-pine/neovim"
     },
     "telescope": {
-      "rev": "e709d31454ee6e6157f0537f861f797bd44c0bad",
+      "rev": "4d0f5e0e7f69071e315515c385fab2a4eff07b3d",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "telescope-fzf-native": {
