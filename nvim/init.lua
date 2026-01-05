@@ -129,6 +129,9 @@ vim.opt.listchars = { tab = '. ' }
 vim.opt.laststatus = 3
 vim.opt.foldlevel = 99
 vim.opt.statusline = "%=%l,%c"
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
 
 local telescope_builtin = require("telescope.builtin")
 local minif = require("mini.files")
