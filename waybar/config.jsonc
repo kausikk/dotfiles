@@ -1,0 +1,25 @@
+{
+    "layer": "top",
+    "output": "DP-2",
+    "height": 24,
+    "modules-right": [ "temperature", "cpu", "memory", "tray", "clock" ],
+    "clock": {
+        "format": "{:%I:%M %p}",
+        "tooltip": false
+    },
+    "cpu": {
+        "format": "{usage}%",
+    },
+    "memory": {
+        "format": "{}%"
+    },
+    "temperature": {
+        "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+        "input-filename": "temp1_input",
+        "format": "{temperatureC}°C ",
+        "tooltip": false,
+    },
+    "tray": {
+        "show-passive-items": true,
+    },
+}

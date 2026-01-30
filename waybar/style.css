@@ -1,0 +1,15 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Roboto;
+    font-size: 16px;
+}
+
+window#waybar {
+    background: transparent;
+    color: white;
+}
+
+*.module {
+    margin: 0 5px -5px;
+}
