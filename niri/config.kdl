@@ -102,8 +102,6 @@ binds {
 
     Mod+R { switch-preset-column-width; }
 
-    Mod+C { center-column; }
-
     Mod+V { toggle-window-floating; }
 
     Mod+P { screenshot; }
@@ -113,4 +111,12 @@ binds {
 
 recent-windows {
     open-delay-ms 0
+}
+
+clipboard {
+    disable-primary
+}
+
+environment {
+    TERMINAL "kitty"
 }
