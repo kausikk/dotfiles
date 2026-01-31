@@ -1,0 +1,14 @@
+[Unit]
+Description=refresh rclone google drive
+After=rclone.service
+Requires=rclone.service
+
+[Service]
+Type=oneshot
+User=krkm
+Group=krkm
+ExecStart=/usr/bin/rclone rc vfs/refresh recursive=true
+ExecStart=+/usr/bin/updatedb -U /mnt/gdrive
+
+[Install]
+WantedBy=default.target

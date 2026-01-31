@@ -1,0 +1,27 @@
+[Unit]
+Description=rclone google drive
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=krkm
+Group=krkm
+Type=notify
+ExecStart=/usr/bin/rclone mount gdrive: /mnt/gdrive \
+--rc \
+--vfs-cache-mode full \
+--vfs-cache-max-age 24h \
+--vfs-cache-max-size 50G \
+--vfs-read-chunk-size 128M \
+--vfs-fast-fingerprint \
+--dir-cache-time 1000h \
+--buffer-size 32M \
+--allow-other \
+--log-level INFO \
+--log-file /home/krkm/.rclone.log
+ExecStop=/bin/fusermount -u /mnt/gdrive
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=rclone google drive daily 8h refresh
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=8h
+
+[Install]
+WantedBy=timers.target
