@@ -1,5 +1,5 @@
 [Unit]
-Description=refresh rclone google drive
+Description=rclone google drive refresh
 After=rclone.service
 Requires=rclone.service
 

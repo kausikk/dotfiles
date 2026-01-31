@@ -1,4 +1,4 @@
-## Dependencies
+## Setup
 
 ### nvim
 
@@ -17,3 +17,4 @@
 - rclone
     - setup google drive [remote](https://rclone.org/drive/) at `/mnt/gdrive`
     - set `user_allow_other` in `/etc/fuse.conf`
+    - place *.service and *.timer in `/etc/systemd/system`
