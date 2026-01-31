@@ -12,6 +12,8 @@
 
 ### systemd/rclone
 
+- plocate
+    - use `plocate -d /var/lib/plocate/plocate.db:/var/lib/plocate/gdrive.db ...`
 - rclone
     - setup google drive [remote](https://rclone.org/drive/) at `/mnt/gdrive`
     - set `user_allow_other` in `/etc/fuse.conf`

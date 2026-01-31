@@ -8,7 +8,7 @@ Type=oneshot
 User=krkm
 Group=krkm
 ExecStart=/usr/bin/rclone rc vfs/refresh recursive=true
-ExecStart=+/usr/bin/updatedb -U /mnt/gdrive
+ExecStart=+/usr/bin/updatedb -o /var/lib/plocate/gdrive.db -U /mnt/gdrive
 
 [Install]
 WantedBy=default.target
