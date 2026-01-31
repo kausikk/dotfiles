@@ -1,7 +1,7 @@
 {
   "plugins": {
     "gitsigns": {
-      "rev": "42d6aed4e94e0f0bbced16bbdcc42f57673bd75e",
+      "rev": "abf82a65f185bd54adc0679f74b7d6e1ada690c9",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "guess-indent": {
@@ -13,7 +13,7 @@
       "src": "https://github.com/smoka7/hop.nvim"
     },
     "mini.files": {
-      "rev": "22c64f010eef047ed270e29e7cc266cd4740787e",
+      "rev": "fafacfecdd6c5a66bb10d173a749f3c098e84498",
       "src": "https://github.com/nvim-mini/mini.files"
     },
     "nanobufferline": {
@@ -21,11 +21,11 @@
       "src": "https://github.com/kausikk/nanobufferline"
     },
     "nvim-autopairs": {
-      "rev": "c2a0dd0d931d0fb07665e1fedb1ea688da3b80b4",
+      "rev": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-treesitter": {
-      "rev": "15b3416cc1f557c4932468e512a0bd45871167bc",
+      "rev": "4967fa48b0fe7a7f92cee546c76bb4bb61bb14d5",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "plenary": {
@@ -37,7 +37,7 @@
       "src": "https://github.com/rose-pine/neovim"
     },
     "telescope": {
-      "rev": "a8c2223ea6b185701090ccb1ebc7f4e41c4c9784",
+      "rev": "ad7d9580338354ccc136e5b8f0aa4f880434dcdc",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "telescope-fzf-native": {
