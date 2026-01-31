@@ -1,0 +1,107 @@
+input {
+    focus-follows-mouse
+    mod-key "Alt"
+    mod-key-nested "Super"
+}
+
+output "DP-1" {
+    mode "2560x1440@119.998"
+    scale 1
+    transform "normal"
+    position x=0 y=0
+    variable-refresh-rate on-demand=true
+}
+
+output "DP-2" {
+    mode "1366x768@59.790"
+    scale 1
+    transform "90"
+    position x=2560 y=0
+}
+
+layout {
+    gaps 8
+    center-focused-column "never"
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 1.0
+    }
+
+    default-column-width { proportion 1.0; }
+
+    focus-ring {
+        width 2
+        active-color "#6a55b5"
+        inactive-color "#505050"
+    }
+
+    background-color "#000000"
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+screenshot-path "~/Pictures/Screenshots/screenshot-%Y-%m-%d-%H-%M-%S.png"
+
+window-rule {
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+window-rule {
+    match app-id="^kitty$"
+    default-column-width { proportion 0.5; }
+}
+
+binds {
+    Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
+
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+
+    XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
+    XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
+    XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+
+    Mod+A repeat=false { toggle-overview; }
+
+    Mod+Q repeat=false { close-window; }
+
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-or-workspace-down; }
+    Mod+K     { focus-window-or-workspace-up; }
+    Mod+L     { focus-column-right; }
+
+    Mod+WheelScrollDown      cooldown-ms=50 { focus-column-right; }
+    Mod+WheelScrollUp        cooldown-ms=50 { focus-column-left; }
+    Mod+Shift+WheelScrollDown cooldown-ms=50 { focus-workspace-down; }
+    Mod+Shift+WheelScrollUp   cooldown-ms=50 { focus-workspace-up; }
+
+    Mod+R { switch-preset-column-width; }
+
+    Mod+C { center-column; }
+
+    Mod+V { toggle-window-floating; }
+
+    Mod+P { screenshot; }
+
+    Mod+Shift+E { quit; }
+}
+
+recent-windows {
+    open-delay-ms 0
+}
