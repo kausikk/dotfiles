@@ -4,7 +4,7 @@
     "height": 24,
     "modules-right": [ "temperature", "cpu", "memory", "tray", "clock" ],
     "clock": {
-        "format": "{:%I:%M %p}",
+        "format": "{:%b %d %I:%M %p}",
         "tooltip": false
     },
     "cpu": {
