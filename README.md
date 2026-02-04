@@ -19,5 +19,12 @@
 - rclone
     - setup google drive [remote](https://rclone.org/drive/) at `/mnt/gdrive`
     - place *.service and *.timer in `/etc/systemd/system`
+
+### niri
+
+- kitty
+- fish
+- dex
 - [fzf](https://github.com/junegunn/fzf)
 - [fre](github.com/camdencheek/fre)
+- wl-clipboard

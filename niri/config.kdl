@@ -89,16 +89,21 @@ window-rule {
 }
 
 binds {
+    // in case of emergency, break glass!
+    Mod+Shift+E { spawn "kitty"; }
+
+    // the greatest keybind of all time...
     Mod+Space {
-        spawn  "kitty" "--class" "krkm-plct" "--" \
-        "fzf" "--ansi" \
-        "--bind" "start:reload(fre --sorted & )" \
+        // needs niri, kitty, fish, dex, fzf, fre, wl-clipboard, plocate...
+        spawn "kitty" "--single-instance" "--class" "krkm-plct" "--" \
+        "fzf" "--ansi" "--no-sort" \
+        "--bind" "start:reload(fre --sorted --truncate 25)" \
         "--bind" "change:reload( /
             sleep 0.15; /
-            fre --sorted & /
-            plocate -d /var/lib/plocate/plocate.db:/var/lib/plocate/gdrive.db -i -l 300 (string split ' ' {q}) /
+            fre --sorted --limit 25; /
+            plocate -d /var/lib/plocate/plocate.db:/var/lib/plocate/gdrive.db -i -l 1000 (string split ' ' {q}) /
         )" \
-        "--bind" "enter:execute(fre --add {})+become(xdg-open {})";
+        "--bind" "enter:execute-silent(fre --add {}; wl-copy {}; niri msg action spawn -- dex {})+abort"
     }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
