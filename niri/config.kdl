@@ -46,18 +46,21 @@ hotkey-overlay {
 screenshot-path "~/Pictures/Screenshots/screenshot-%Y-%m-%d-%H-%M-%S.png"
 
 window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+    default-column-width { proportion 0.5; }
+}
+
+window-rule {
     match app-id=r#"firefox$"# title="^Picture-in-Picture$"
     open-floating true
 }
 
 window-rule {
     match app-id=r#"pavucontrol$"# title="^Volume Control$"
+    default-column-width { proportion 0.4; }
+    default-window-height { proportion 0.4; }
     open-floating true
-}
-
-window-rule {
-    geometry-corner-radius 12
-    clip-to-geometry true
 }
 
 window-rule {
@@ -77,8 +80,26 @@ window-rule {
     open-on-output "DP-1"
 }
 
+window-rule {
+    match app-id="^krkm-plct$"
+    open-on-output "DP-1"
+    open-floating true
+    default-column-width { proportion 0.4; }
+    default-window-height { proportion 0.4; }
+}
+
 binds {
-    Mod+Space hotkey-overlay-title="launch an app with fuzzel" { spawn "fuzzel"; }
+    Mod+Space {
+        spawn  "kitty" "--class" "krkm-plct" "--" \
+        "fzf" "--ansi" \
+        "--bind" "start:reload(fre --sorted & )" \
+        "--bind" "change:reload( /
+            sleep 0.15; /
+            fre --sorted & /
+            plocate -d /var/lib/plocate/plocate.db:/var/lib/plocate/gdrive.db -i -l 300 (string split ' ' {q}) /
+        )" \
+        "--bind" "enter:execute(fre --add {})+become(xdg-open {})";
+    }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
@@ -93,7 +114,7 @@ binds {
     XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
-    Mod+A repeat=false { toggle-overview; }
+    Mod+W repeat=false { toggle-overview; }
 
     Mod+Q repeat=false { close-window; }
 
@@ -107,10 +128,10 @@ binds {
     Mod+Ctrl+K { move-column-to-workspace-up; }
     Mod+Ctrl+L { move-column-right; }
 
-    Mod+WheelScrollDown      cooldown-ms=50 { focus-column-right; }
-    Mod+WheelScrollUp        cooldown-ms=50 { focus-column-left; }
-    Mod+Ctrl+WheelScrollDown cooldown-ms=50 { focus-workspace-down; }
-    Mod+Ctrl+WheelScrollUp   cooldown-ms=50 { focus-workspace-up; }
+    Mod+WheelScrollDown      cooldown-ms=0 { focus-column-right; }
+    Mod+WheelScrollUp        cooldown-ms=0 { focus-column-left; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=0 { focus-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   cooldown-ms=0 { focus-workspace-up; }
 
     Mod+R { switch-preset-column-width; }
 
@@ -120,7 +141,7 @@ binds {
 }
 
 recent-windows {
-    open-delay-ms 500
+    open-delay-ms 0
 }
 
 clipboard {

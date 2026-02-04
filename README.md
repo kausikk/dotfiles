@@ -14,7 +14,10 @@
 
 - plocate
     - use `plocate -d /var/lib/plocate/plocate.db:/var/lib/plocate/gdrive.db ...`
+    - set `user_allow_other` in `/etc/fuse.conf`
+    - add to `/etc/updatedb.conf`: `.venv`, `.../.cache/uv`, `.../.cache/rclone`
 - rclone
     - setup google drive [remote](https://rclone.org/drive/) at `/mnt/gdrive`
-    - set `user_allow_other` in `/etc/fuse.conf`
     - place *.service and *.timer in `/etc/systemd/system`
+- [fzf](https://github.com/junegunn/fzf)
+- [fre](github.com/camdencheek/fre)
