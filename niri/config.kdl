@@ -94,13 +94,13 @@ binds {
 
     // the greatest keybind of all time...
     Mod+Space {
-        // needs niri, kitty, fish, dex, fzf, fre, wl-clipboard, plocate...
+        // needs niri, kitty, fish, dex, fzf, fre, awk, wl-clipboard, plocate...
         spawn "kitty" "--single-instance" "--class" "krkm-plct" "--" \
         "fzf" "--ansi" "--no-sort" \
-        "--bind" "start:reload(fre --sorted --truncate 25)" \
+        "--bind" "start:reload(fre --sorted --limit 25 | awk '!seen[$0]++')" \
         "--bind" "change:reload( /
             sleep 0.15; /
-            fre --sorted --limit 25; /
+            fre --sorted --limit 25 | awk '!seen[$0]++'; /
             plocate -d /var/lib/plocate/plocate.db:/var/lib/plocate/gdrive.db -i -l 1000 (string split ' ' {q}) /
         )" \
         "--bind" "enter:execute-silent(fre --add {}; wl-copy {}; niri msg action spawn -- dex {})+abort"
