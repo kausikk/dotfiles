@@ -103,7 +103,7 @@ binds {
             fre --sorted --limit 25 | awk '!seen[$0]++'; /
             plocate -d /var/lib/plocate/plocate.db:/var/lib/plocate/gdrive.db -i -l 1000 (string split ' ' {q}) /
         )" \
-        "--bind" "enter:execute-silent(fre --add {}; wl-copy {}; niri msg action spawn -- dex {})+abort"
+        "--bind" "enter:execute-silent(fre --add {}; wl-copy {}; niri msg action spawn -- /home/krkm/.config/niri/krkm-plct-open.fish {} {})+abort"
     }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
