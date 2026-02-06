@@ -15,7 +15,7 @@
 - plocate
     - use `plocate -d /var/lib/plocate/plocate.db:/var/lib/plocate/gdrive.db ...`
     - set `user_allow_other` in `/etc/fuse.conf`
-    - add to `/etc/updatedb.conf`: `.venv`, `.../.cache/uv`, `.../.cache/rclone`
+    - add to `/etc/updatedb.conf`: `.venv`, `.../.cache/uv`, `.../.cache/rclone`, and more
 - rclone
     - setup google drive [remote](https://rclone.org/drive/) at `/mnt/gdrive`
     - place *.service and *.timer in `/etc/systemd/system`
@@ -24,7 +24,7 @@
 
 - kitty
 - fish
-- dex
+- dex/dex-autostart
 - [fzf](https://github.com/junegunn/fzf)
 - [fre](github.com/camdencheek/fre)
 - wl-clipboard
