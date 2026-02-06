@@ -90,7 +90,9 @@ window-rule {
 
 binds {
     // in case of emergency, break glass!
-    Mod+Shift+E { spawn "kitty"; }
+    Mod+E { spawn "kitty"; }
+
+    Mod+S { spawn "systemctl" "suspend"; }
 
     // the greatest keybind of all time...
     Mod+Space {
@@ -119,7 +121,7 @@ binds {
     XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
-    Mod+W repeat=false { toggle-overview; }
+    Mod+A repeat=false { toggle-overview; }
 
     Mod+Q repeat=false { close-window; }
 

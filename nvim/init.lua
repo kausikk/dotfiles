@@ -133,6 +133,8 @@ vim.opt.expandtab = false
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
+vim.opt.wrap = false
+vim.opt.linebreak = true
 
 local telescope_builtin = require("telescope.builtin")
 local minif = require("mini.files")
