@@ -3,6 +3,8 @@ input {
         natural-scroll
     }
     focus-follows-mouse
+    mod-key "Alt"
+    mod-key-nested "Super"
 }
 
 layout {
@@ -34,7 +36,6 @@ screenshot-path "~/Pictures/Screenshots/screenshot-%Y-%m-%d-%H-%M-%S.png"
 window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
-    default-column-width { proportion 0.5; }
 }
 
 window-rule {
@@ -44,24 +45,21 @@ window-rule {
 
 window-rule {
     match app-id="^kitty$"
-    default-column-width { proportion 0.5; }
 }
 
 window-rule {
     match app-id="^org.kde.dolphin$"
-    default-column-width { proportion 0.4; }
-    default-window-height { proportion 0.4; }
+    default-column-width { proportion 0.6; }
+    default-window-height { proportion 0.6; }
     open-floating true
 }
 
 window-rule {
     match app-id="^discord$"
-    open-on-output "DP-1"
 }
 
 window-rule {
     match app-id="^krkm-plct$"
-    open-on-output "DP-1"
     open-floating true
     default-column-width { proportion 0.4; }
     default-window-height { proportion 0.4; }
@@ -97,8 +95,10 @@ binds {
     XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
     XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
 
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--device=apple-panel-bl" "set" "+10%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--device=apple-panel-bl" "set" "10%-"; }
+    Mod+XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--device=kbd_backlight" "set" "+10%"; }
+    Mod+XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--device=kbd_backlight" "set" "10%-"; }
 
     Mod+A repeat=false { toggle-overview; }
 
@@ -127,7 +127,7 @@ binds {
 }
 
 recent-windows {
-    open-delay-ms 0
+    open-delay-ms 400
 }
 
 clipboard {

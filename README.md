@@ -28,3 +28,8 @@
 - [fzf](https://github.com/junegunn/fzf)
 - [fre](github.com/camdencheek/fre)
 - wl-clipboard
+- for mac, [modify kernel params](https://www.reddit.com/r/AsahiLinux/comments/1iuhxy5/how_to_remap_modifier_keys_in_asahi_gnome/)
+to remap cmd, fn, ctrl, and opt:
+    - [hid_apple](https://github.com/torvalds/linux/blob/master/drivers/hid/hid-apple.c#L55-L81)
+    - `sudo grubby --args=hid_apple.swap_fn_leftctrl=1 --update=ALL`
+    - `sudo grubby --args=hid_apple.swap_opt_cmd=1 --update=ALL`
