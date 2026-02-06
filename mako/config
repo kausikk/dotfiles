@@ -1,0 +1,16 @@
+sort=-time
+layer=overlay
+background-color=#36283d
+width=400
+height=100
+border-size=2
+border-color=#6a55b5
+border-radius=10
+max-icon-size=32
+font=Roboto 12
+text-color=#cedaeb
+
+[urgency=high]
+border-color=#bf616a
+default-timeout=0
+ignore-timeout=1

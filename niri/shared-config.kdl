@@ -4,21 +4,6 @@ input {
     mod-key-nested "Super"
 }
 
-output "DP-1" {
-    mode "2560x1440@119.998"
-    scale 1
-    transform "normal"
-    position x=0 y=0
-    variable-refresh-rate on-demand=true
-}
-
-output "DP-2" {
-    mode "1366x768@59.790"
-    scale 1
-    transform "90"
-    position x=2560 y=0
-}
-
 layout {
     gaps 8
     center-focused-column "never"
@@ -33,7 +18,6 @@ layout {
     focus-ring {
         width 2
         active-color "#6a55b5"
-        inactive-color "#505050"
     }
 
     background-color "#000000"
@@ -46,9 +30,8 @@ hotkey-overlay {
 screenshot-path "~/Pictures/Screenshots/screenshot-%Y-%m-%d-%H-%M-%S.png"
 
 window-rule {
-    geometry-corner-radius 12
+    geometry-corner-radius 10
     clip-to-geometry true
-    default-column-width { proportion 0.5; }
 }
 
 window-rule {
@@ -58,34 +41,28 @@ window-rule {
 
 window-rule {
     match app-id=r#"pavucontrol$"# title="^Volume Control$"
-    default-column-width { proportion 0.4; }
-    default-window-height { proportion 0.4; }
-    open-floating true
-}
-
-window-rule {
-    match app-id="^kitty$"
     default-column-width { proportion 0.5; }
+    default-window-height { proportion 0.5; }
+    open-floating true
 }
 
 window-rule {
     match app-id="^org.kde.dolphin$"
-    default-column-width { proportion 0.4; }
-    default-window-height { proportion 0.4; }
+    default-column-width { proportion 0.5; }
+    default-window-height { proportion 0.5; }
     open-floating true
-}
-
-window-rule {
-    match app-id="^discord$"
-    open-on-output "DP-1"
 }
 
 window-rule {
     match app-id="^krkm-plct$"
-    open-on-output "DP-1"
     open-floating true
-    default-column-width { proportion 0.4; }
-    default-window-height { proportion 0.4; }
+    default-column-width { proportion 0.5; }
+    default-window-height { proportion 0.5; }
+}
+
+window-rule {
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="bottom-right"
 }
 
 binds {
@@ -118,8 +95,8 @@ binds {
     XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
     XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
 
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "-e" "--class=backlight" "set" "+10%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "-e" "--class=backlight" "set" "10%-"; }
 
     Mod+A repeat=false { toggle-overview; }
 
@@ -148,7 +125,7 @@ binds {
 }
 
 recent-windows {
-    open-delay-ms 0
+    open-delay-ms 400
 }
 
 clipboard {

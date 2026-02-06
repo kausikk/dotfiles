@@ -1,141 +1,14 @@
+include "shared-config.kdl"
+
 input {
     touchpad {
         natural-scroll
     }
-    focus-follows-mouse
-    mod-key "Alt"
-    mod-key-nested "Super"
-}
-
-layout {
-    gaps 8
-    center-focused-column "never"
-
-    preset-column-widths {
-        proportion 0.5
-        proportion 1.0
-    }
-
-    default-column-width { proportion 1.0; }
-
-    focus-ring {
-        width 2
-        active-color "#6a55b5"
-        inactive-color "#505050"
-    }
-
-    background-color "#000000"
-}
-
-hotkey-overlay {
-    skip-at-startup
-}
-
-screenshot-path "~/Pictures/Screenshots/screenshot-%Y-%m-%d-%H-%M-%S.png"
-
-window-rule {
-    geometry-corner-radius 12
-    clip-to-geometry true
-}
-
-window-rule {
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
-    open-floating true
-}
-
-window-rule {
-    match app-id="^kitty$"
-}
-
-window-rule {
-    match app-id="^org.kde.dolphin$"
-    default-column-width { proportion 0.6; }
-    default-window-height { proportion 0.6; }
-    open-floating true
-}
-
-window-rule {
-    match app-id="^discord$"
-}
-
-window-rule {
-    match app-id="^krkm-plct$"
-    open-floating true
-    default-column-width { proportion 0.4; }
-    default-window-height { proportion 0.4; }
 }
 
 binds {
-    // in case of emergency, break glass!
-    Mod+E { spawn "kitty"; }
-
-    Mod+S { spawn "systemctl" "suspend"; }
-
-    // the greatest keybind of all time...
-    Mod+Space {
-        // needs niri, kitty, fish, dex, fzf, fre, awk, wl-clipboard, plocate...
-        spawn "kitty" "--single-instance" "--class" "krkm-plct" "--" \
-        "fzf" "--ansi" "--no-sort" \
-        "--bind" "start:reload(fre --sorted --limit 25 | awk '!seen[$0]++')" \
-        "--bind" "change:reload( /
-            sleep 0.15; /
-            fre --sorted --limit 25 | awk '!seen[$0]++'; /
-            plocate -d /var/lib/plocate/plocate.db:/var/lib/plocate/gdrive.db -i -l 1000 (string split ' ' {q}) /
-        )" \
-        "--bind" "enter:execute-silent(fre --add {}; wl-copy {}; niri msg action spawn -- /home/krkm/.config/niri/krkm-plct-open-mac.fish {} {})+abort"
-    }
-
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
-
-    XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
-    XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
-    XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
-    XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
-
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--device=apple-panel-bl" "set" "+10%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--device=apple-panel-bl" "set" "10%-"; }
-    Mod+XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--device=kbd_backlight" "set" "+10%"; }
-    Mod+XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--device=kbd_backlight" "set" "10%-"; }
-
-    Mod+A repeat=false { toggle-overview; }
-
-    Mod+Q repeat=false { close-window; }
-
-    Mod+H     { focus-column-left; }
-    Mod+J     { focus-window-or-workspace-down; }
-    Mod+K     { focus-window-or-workspace-up; }
-    Mod+L     { focus-column-right; }
-
-    Mod+Ctrl+H { move-column-left; }
-    Mod+Ctrl+J { move-column-to-workspace-down; }
-    Mod+Ctrl+K { move-column-to-workspace-up; }
-    Mod+Ctrl+L { move-column-right; }
-
-    Mod+WheelScrollDown      cooldown-ms=0 { focus-column-right; }
-    Mod+WheelScrollUp        cooldown-ms=0 { focus-column-left; }
-    Mod+Ctrl+WheelScrollDown cooldown-ms=0 { focus-workspace-down; }
-    Mod+Ctrl+WheelScrollUp   cooldown-ms=0 { focus-workspace-up; }
-
-    Mod+R { switch-preset-column-width; }
-
-    Mod+V { toggle-window-floating; }
-
-    Super+Shift+S { screenshot; }
-}
-
-recent-windows {
-    open-delay-ms 400
-}
-
-clipboard {
-    disable-primary
-}
-
-environment {
-    TERMINAL "kitty"
+    Mod+XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "-e" "--device=kbd_backlight" "set" "+10%"; }
+    Mod+XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "-e" "--device=kbd_backlight" "set" "10%-"; }
 }
 
 debug {

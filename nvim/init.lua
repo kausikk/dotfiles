@@ -135,6 +135,7 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.wrap = false
 vim.opt.linebreak = true
+vim.o.clipboard = 'unnamedplus'
 
 local telescope_builtin = require("telescope.builtin")
 local minif = require("mini.files")

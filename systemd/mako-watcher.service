@@ -1,0 +1,9 @@
+[Unit]
+Description=mako notifications tester
+
+[Service]
+Type=oneshot
+ExecStart=/home/krkm/.config/mako/reload.fish
+
+[Install]
+WantedBy=graphical-session.target
