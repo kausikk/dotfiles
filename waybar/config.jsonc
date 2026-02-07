@@ -2,7 +2,7 @@
     "layer": "top",
     "output": [ "DP-2" ],
     "include": [ "$HOME/.config/waybar/shared-config.json" ],
-    "modules-right": [ "temperature", "cpu", "memory", "tray", "clock" ],
+    "modules-right": [ "tray", "temperature", "cpu", "memory", "clock" ],
 },
 {
     "layer": "top",

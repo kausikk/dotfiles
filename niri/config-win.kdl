@@ -14,3 +14,13 @@ output "DP-2" {
     transform "90"
     position x=2560 y=0
 }
+
+window-rule {
+    match app-id="^kitty$"
+    default-column-width { proportion 0.5; }
+}
+
+window-rule {
+    match app-id="^discord$"
+    open-on-output "DP-1"
+}
