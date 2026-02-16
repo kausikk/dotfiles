@@ -65,6 +65,13 @@ window-rule {
     default-floating-position x=10 y=10 relative-to="bottom-right"
 }
 
+window-rule {
+    match app-id="steam" title="^Steam Settings$"
+    default-column-width { proportion 0.5; }
+    default-window-height { proportion 0.5; }
+    open-floating true
+}
+
 binds {
     // in case of emergency, break glass!
     Mod+E { spawn "kitty"; }
