@@ -1,7 +1,7 @@
 {
   "plugins": {
     "gitsigns": {
-      "rev": "abf82a65f185bd54adc0679f74b7d6e1ada690c9",
+      "rev": "9f3c6dd7868bcc116e9c1c1929ce063b978fa519",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "guess-indent": {
@@ -25,7 +25,7 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-treesitter": {
-      "rev": "4967fa48b0fe7a7f92cee546c76bb4bb61bb14d5",
+      "rev": "3edb01f912867603c2aef9079f208f0244c0885b",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "plenary": {
@@ -37,7 +37,7 @@
       "src": "https://github.com/rose-pine/neovim"
     },
     "telescope": {
-      "rev": "ad7d9580338354ccc136e5b8f0aa4f880434dcdc",
+      "rev": "5255aa27c422de944791318024167ad5d40aad20",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "telescope-fzf-native": {
@@ -45,7 +45,7 @@
       "src": "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
     },
     "treesitter-modules": {
-      "rev": "7efc486c933a361568855b10e0829aa2cda4b6b0",
+      "rev": "0cc09da40061051b0186479203faa75052cddab6",
       "src": "https://github.com/MeanderingProgrammer/treesitter-modules.nvim"
     }
   }

@@ -3,18 +3,18 @@
     "temperature": {
         "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
         "input-filename": "temp1_input",
-        "format": "{temperatureC}°C ",
+        "format": "{temperatureC}°C",
         "tooltip": false,
     },
     "cpu": {
-        "format": "{usage}%",
+        "format": "{usage:02}%",
     },
     "memory": {
-        "format": "{}%"
+        "format": "{percentage:02}%"
     },
     "tray": {
         "show-passive-items": true,
-        "spacing": 10
+        "spacing": 12
     },
     "clock": {
         "format": "{:%b %d %I:%M %p}",
