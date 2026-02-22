@@ -1,9 +1,8 @@
 include "shared-config.kdl"
 
 output "DP-1" {
-    mode "2560x1440@119.998"
+    mode "2560x1440@179.960"
     scale 1
-    transform "normal"
     position x=0 y=0
     variable-refresh-rate on-demand=true
 }
@@ -16,11 +15,7 @@ output "DP-2" {
 }
 
 window-rule {
-    match app-id="^kitty$"
-    default-column-width { proportion 0.5; }
-}
-
-window-rule {
     match app-id="^discord$"
+    match app-id="^steam$"
     open-on-output "DP-1"
 }

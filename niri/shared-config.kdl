@@ -35,26 +35,17 @@ window-rule {
 }
 
 window-rule {
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id="^firefox$" title="^Picture-in-Picture$"
     open-floating true
 }
 
 window-rule {
-    match app-id=r#"pavucontrol$"# title="^Volume Control$"
-    default-column-width { proportion 0.5; }
-    default-window-height { proportion 0.5; }
-    open-floating true
-}
-
-window-rule {
+    match app-id="^pavucontrol$" title="^Volume Control$"
+    match app-id="^blueman-manager$"
     match app-id="^org.kde.dolphin$"
-    default-column-width { proportion 0.5; }
-    default-window-height { proportion 0.5; }
-    open-floating true
-}
-
-window-rule {
     match app-id="^krkm-plct$"
+    match app-id="^steam$" title="^Steam Settings$"
+    match app-id="^steam$" title="^Friends List$"
     open-floating true
     default-column-width { proportion 0.5; }
     default-window-height { proportion 0.5; }
@@ -63,13 +54,6 @@ window-rule {
 window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
     default-floating-position x=10 y=10 relative-to="bottom-right"
-}
-
-window-rule {
-    match app-id="steam" title="^Steam Settings$"
-    default-column-width { proportion 0.5; }
-    default-window-height { proportion 0.5; }
-    open-floating true
 }
 
 binds {
@@ -129,6 +113,13 @@ binds {
     Mod+V { toggle-window-floating; }
 
     Super+Shift+S { screenshot; }
+}
+
+overview {
+    backdrop-color "#000000"
+    workspace-shadow {
+        off
+    }
 }
 
 recent-windows {
