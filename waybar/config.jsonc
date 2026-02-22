@@ -2,11 +2,11 @@
     "layer": "top",
     "output": [ "DP-2" ],
     "include": [ "$HOME/.config/waybar/shared-config.json" ],
-    "modules-right": [ "tray", "temperature", "cpu", "memory", "clock" ],
+    "modules-left": [ "clock", "temperature", "cpu", "memory", "tray" ],
 },
 {
     "layer": "top",
     "output": [ "eDP-1" ],
     "include": [ "$HOME/.config/waybar/shared-config.json" ],
-    "modules-right": [ "tray", "cpu", "memory", "clock" ],
+    "modules-left": [ "clock", "cpu", "memory", "tray" ],
 }]

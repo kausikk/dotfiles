@@ -5,6 +5,9 @@ output "DP-1" {
     scale 1
     position x=0 y=0
     variable-refresh-rate on-demand=true
+    layout {
+        default-column-width { proportion 0.5; }
+    }
 }
 
 output "DP-2" {

@@ -13,14 +13,12 @@ layout {
         proportion 1.0
     }
 
-    default-column-width { proportion 1.0; }
-
     focus-ring {
-        width 2
+        width 3
         active-color "#6a55b5"
     }
 
-    background-color "#000000"
+    background-color "transparent"
 }
 
 hotkey-overlay {
@@ -115,6 +113,11 @@ binds {
     Super+Shift+S { screenshot; }
 }
 
+layer-rule {
+    match namespace="^swww-daemon$"
+    place-within-backdrop true
+}
+
 overview {
     backdrop-color "#000000"
     workspace-shadow {
@@ -122,14 +125,16 @@ overview {
     }
 }
 
+spawn-at-startup "swww-daemon"
+
 recent-windows {
     open-delay-ms 400
+    highlight {
+        padding 15
+        corner-radius 10
+    }
 }
 
 clipboard {
     disable-primary
-}
-
-environment {
-    TERMINAL "kitty"
 }
