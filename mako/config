@@ -9,6 +9,7 @@ border-radius=10
 max-icon-size=32
 font=Roboto 12
 text-color=#cedaeb
+default-timeout=10000
 
 [urgency=high]
 border-color=#bf616a

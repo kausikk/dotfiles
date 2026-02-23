@@ -12,9 +12,9 @@ window#waybar {
 }
 
 *.module {
-    margin: 0 5px -5px;
+    margin: 5px;
 }
 
-#tray {
-    margin-right: 8px;
+.modules-left {
+    margin-left: 10px;
 }
