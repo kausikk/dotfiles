@@ -1,5 +1,11 @@
 include "shared-config.kdl"
 
+output "eDP-1" {
+    layout {
+        default-column-width { proportion 1.0; }
+    }
+}
+
 input {
     touchpad {
         natural-scroll

@@ -115,6 +115,7 @@ binds {
 
 layer-rule {
     match namespace="^swww-daemon$"
+    match namespace="^wallpaper$"
     place-within-backdrop true
 }
 
@@ -126,6 +127,7 @@ overview {
 }
 
 spawn-at-startup "swww-daemon"
+spawn-at-startup "swaybg -i ~/Pictures/wallpapers/wallpaper.jpeg"
 
 recent-windows {
     open-delay-ms 400
