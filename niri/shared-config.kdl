@@ -126,9 +126,6 @@ overview {
     }
 }
 
-spawn-at-startup "swww-daemon"
-spawn-at-startup "swaybg -i ~/Pictures/wallpapers/wallpaper.jpeg"
-
 recent-windows {
     open-delay-ms 400
     highlight {

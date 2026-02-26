@@ -6,6 +6,8 @@ output "eDP-1" {
     }
 }
 
+spawn-at-startup "swaybg" "-m" "fill" "-i" "/home/krkm/Pictures/wallpapers/wallpaper.jpeg"
+
 input {
     touchpad {
         natural-scroll

@@ -17,6 +17,8 @@ output "DP-2" {
     position x=2560 y=0
 }
 
+spawn-at-startup "swww-daemon"
+
 window-rule {
     match app-id="^discord$"
     match app-id="^steam$"
