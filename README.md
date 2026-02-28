@@ -9,6 +9,7 @@
     - mac: [xcode cli tools](https://developer.apple.com/documentation/xcode/installing-the-command-line-tools/)
     - linux: build-essential
     - windows: [mingw-w64](https://www.mingw-w64.org/)
+- use `vim.pack.update(nil, { target = 'lockfile' })` to update from lockfile on a remote machine
 
 ### systemd/rclone
 

@@ -41,9 +41,13 @@ window-rule {
     match app-id="^pavucontrol$" title="^Volume Control$"
     match app-id="^blueman-manager$"
     match app-id="^org.kde.dolphin$"
+    match app-id="^org.gnome.Nautilus$"
     match app-id="^krkm-plct$"
     match app-id="^steam$" title="^Steam Settings$"
     match app-id="^steam$" title="^Friends List$"
+    match app-id="^firefox$" title="^Save As"
+    match app-id="^python3$"
+    match app-id="^Matplotlib$"
     open-floating true
     default-column-width { proportion 0.5; }
     default-window-height { proportion 0.5; }
@@ -52,6 +56,12 @@ window-rule {
 window-rule {
     match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
     default-floating-position x=10 y=10 relative-to="bottom-right"
+}
+
+animations {
+    horizontal-view-movement {
+        spring damping-ratio=1.0 stiffness=3000 epsilon=0.001
+    }
 }
 
 binds {
@@ -91,10 +101,15 @@ binds {
 
     Mod+Q repeat=false { close-window; }
 
-    Mod+H     { focus-column-left; }
+    Mod+W { toggle-column-tabbed-display; }
+
+    Mod+Tab         { focus-column-right-or-first;}
+    Mod+Shift+Tab   { focus-column-left-or-last;  }
+
+    Mod+H     { focus-column-left-or-last; }
     Mod+J     { focus-window-or-workspace-down; }
     Mod+K     { focus-window-or-workspace-up; }
-    Mod+L     { focus-column-right; }
+    Mod+L     { focus-column-right-or-first; }
 
     Mod+Ctrl+H { move-column-left; }
     Mod+Ctrl+J { move-column-to-workspace-down; }
@@ -127,11 +142,7 @@ overview {
 }
 
 recent-windows {
-    open-delay-ms 400
-    highlight {
-        padding 15
-        corner-radius 10
-    }
+    off
 }
 
 clipboard {
