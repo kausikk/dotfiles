@@ -67,10 +67,24 @@ local telescope = require("telescope")
 local actions = require("telescope.actions")
 local act_state = require("telescope.actions.state")
 telescope.setup({
-	defaults = { mappings = { i = { ["<esc>"] = "close" }}},
+	defaults = {
+		mappings = { i = { ["<esc>"] = "close" }},
+		layout_strategy = "vertical",
+		layout_config = {
+			vertical = {
+				width = 0.95,
+				height = 0.95,
+				preview_height = 0.75
+			}
+		}
+	},
 	pickers = {
+		buffers = { sort_lastused = true },
 		colorscheme = { enable_preview = true },
-		find_files = { no_ignore = true },
+		find_files = {
+			no_ignore = true,
+			no_ignore_parent = true
+		},
 		help_tags = {
 			-- Open help in vertical split! Based on a Telescope configuration recipe for cd.
 			mappings = { i = { ["<CR>"] = function(prompt_bufnr)

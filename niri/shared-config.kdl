@@ -106,10 +106,10 @@ binds {
     Mod+Tab         { focus-column-right-or-first;}
     Mod+Shift+Tab   { focus-column-left-or-last;  }
 
-    Mod+H     { focus-column-left-or-last; }
+    Mod+H     { focus-column-left; }
     Mod+J     { focus-window-or-workspace-down; }
     Mod+K     { focus-window-or-workspace-up; }
-    Mod+L     { focus-column-right-or-first; }
+    Mod+L     { focus-column-right; }
 
     Mod+Ctrl+H { move-column-left; }
     Mod+Ctrl+J { move-column-to-workspace-down; }
