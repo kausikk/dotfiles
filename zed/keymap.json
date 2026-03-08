@@ -1,33 +1,33 @@
 [
   {
-    "context": "VimControl && !menu",
     "bindings": {
       "space f": "file_finder::Toggle",
-      "space /": "pane::DeploySearch",
-
-      // --- Git Operations ---
-      "space g c": "editor::ToggleGitBlame",
-      "space g g": "pane::ToggleWindowSidebar",
-      "space ]": "editor::GoToNextHunk",
-      "space [": "editor::GoToPreviousHunk",
-      "space g p": "editor::ToggleGitBlame",
-      "space g r": "editor::RevertSelectedHunks",
-
-      // --- File Explorer ---
       "space e": "project_panel::ToggleFocus",
-
-      // --- Navigation & Movement ---
-      "shift h": "vim::FirstNonWhitespaceCharacter",
-      "shift l": "vim::EndOfLine",
-
-      // --- Window Management ---
-      "ctrl-h": "window::FocusLeft",
-      "ctrl-l": "window::FocusRight",
-      "ctrl-j": "window::FocusBottom",
-      "ctrl-k": "window::FocusTop",
-
-      // --- Misc ---
-      "U": "editor::Redo",
+      "space g g": "git_panel::ToggleFocus",
+      "space /": "pane::DeploySearch",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+    },
+  },
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      "space ]": "editor::GoToHunk",
+      "space [": "editor::GoToPreviousHunk",
+      "space g p": "editor::ToggleSelectedDiffHunks",
+      "space g b": "editor::ToggleGitBlame",
+      "space g r": "editor::RevertSelectedHunks",
+      "ctrl-w": "pane::CloseActiveItem",
+      "tab": "pane::ActivateNextItem",
+      "shift-tab": "pane::ActivatePreviousItem",
+      "shift-h": [
+        "editor::MoveToBeginningOfLine",
+        { "stop_at_soft_wraps": true, "stop_at_indent": true },
+      ],
+      "shift-l": ["editor::MoveToEndOfLine", { "stop_at_soft_wraps": true }],
+      "shift-u": "editor::Redo",
       "alt-o": "editor::SelectLargerSyntaxNode",
       "alt-i": "editor::SelectSmallerSyntaxNode",
     },
