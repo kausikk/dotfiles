@@ -25,7 +25,17 @@ hotkey-overlay {
     skip-at-startup
 }
 
+environment {
+    TERMINAL "kitty"
+}
+
 screenshot-path "~/Pictures/Screenshots/screenshot-%Y-%m-%d-%H-%M-%S.png"
+
+layer-rule {
+    match namespace="^swww-daemon$"
+    match namespace="^wallpaper$"
+    place-within-backdrop true
+}
 
 window-rule {
     geometry-corner-radius 10
@@ -60,7 +70,7 @@ window-rule {
 
 animations {
     horizontal-view-movement {
-        spring damping-ratio=1.0 stiffness=3000 epsilon=0.001
+        off
     }
 }
 
@@ -70,19 +80,7 @@ binds {
 
     Mod+S { spawn "systemctl" "suspend"; }
 
-    // the greatest keybind of all time...
-    Mod+Space {
-        // needs niri, kitty, fish, dex, fzf, fre, awk, wl-clipboard, plocate...
-        spawn "kitty" "--single-instance" "--class" "krkm-plct" "--" \
-        "fzf" "--ansi" "--no-sort" \
-        "--bind" "start:reload(fre --sorted --limit 25 | awk '!seen[$0]++')" \
-        "--bind" "change:reload( /
-            sleep 0.15; /
-            fre --sorted --limit 25 | awk '!seen[$0]++'; /
-            plocate -d /var/lib/plocate/plocate.db:/home/krkm/.cache/gdrive.db -i -l 1000 (string split ' ' {q}) /
-        )" \
-        "--bind" "enter:execute-silent(fre --add {}; wl-copy {}; niri msg action spawn -- /home/krkm/.config/niri/krkm-plct-open.fish {})+abort"
-    }
+    Mod+Space { spawn "fuzzel"; }
 
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
@@ -128,12 +126,6 @@ binds {
     Super+Shift+S { screenshot; }
 }
 
-layer-rule {
-    match namespace="^swww-daemon$"
-    match namespace="^wallpaper$"
-    place-within-backdrop true
-}
-
 overview {
     backdrop-color "#000000"
     workspace-shadow {
@@ -143,8 +135,4 @@ overview {
 
 recent-windows {
     off
-}
-
-clipboard {
-    disable-primary
 }

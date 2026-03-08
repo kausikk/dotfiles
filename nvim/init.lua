@@ -57,7 +57,7 @@ vim.pack.add({
 	{ src = "https://github.com/lewis6991/gitsigns.nvim", name = "gitsigns" },
 	{ src = "https://github.com/windwp/nvim-autopairs", name = "nvim-autopairs" },
 	{ src = "https://github.com/NMAC427/guess-indent.nvim", name = "guess-indent" },
-	{ src = "https://github.com/kausikk/nanobufferline", name = "nanobufferline" },
+	-- { src = "https://github.com/kausikk/nanobufferline", name = "nanobufferline" }, :(
 	{ src = "https://github.com/MeanderingProgrammer/treesitter-modules.nvim", name = "treesitter-modules" },
 })
 
@@ -79,7 +79,6 @@ telescope.setup({
 		}
 	},
 	pickers = {
-		buffers = { sort_lastused = true },
 		colorscheme = { enable_preview = true },
 		find_files = {
 			no_ignore = true,
@@ -142,7 +141,6 @@ vim.opt.list = true
 vim.opt.listchars = { tab = '. ' }
 vim.opt.laststatus = 3
 vim.opt.foldlevel = 99
-vim.opt.statusline = "%=%l,%c"
 vim.opt.expandtab = false
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
