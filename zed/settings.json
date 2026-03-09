@@ -1,4 +1,15 @@
 {
+  "ssh_connections": [
+    {
+      "host": "srv01",
+      "args": [],
+      "projects": [
+        {
+          "paths": ["/localhome/kka206/damov"],
+        },
+      ],
+    },
+  ],
   "git_panel": {
     "tree_view": true,
   },
