@@ -1,4 +1,5 @@
 {
+  "scroll_beyond_last_line": "off",
   "ssh_connections": [
     {
       "host": "srv01",

@@ -70,6 +70,9 @@ window-rule {
 
 animations {
     horizontal-view-movement {
+        spring damping-ratio=1.0 stiffness=3000 epsilon=0.0001
+    }
+    recent-windows-close {
         off
     }
 }
@@ -101,8 +104,8 @@ binds {
 
     Mod+W { toggle-column-tabbed-display; }
 
-    Mod+Tab         { focus-column-right-or-first;}
-    Mod+Shift+Tab   { focus-column-left-or-last;  }
+    Mod+2   { focus-column-right; }
+    Mod+1   { focus-column-left; }
 
     Mod+H     { focus-column-left; }
     Mod+J     { focus-window-or-workspace-down; }
@@ -131,8 +134,4 @@ overview {
     workspace-shadow {
         off
     }
-}
-
-recent-windows {
-    off
 }
