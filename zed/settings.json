@@ -1,6 +1,5 @@
 {
   "show_wrap_guides": false,
-  "soft_wrap": "preferred_line_length",
   "agent_servers": {
     "claude-acp": {
       "type": "registry",
@@ -14,17 +13,13 @@
       "args": [],
       "projects": [
         {
-          "paths": [
-            "/localhome/kka206/damov"
-          ]
+          "paths": ["/localhome/kka206/damov"],
         },
         {
-          "paths": [
-            "/localhome/kka206/mcpat"
-          ]
-        }
-      ]
-    }
+          "paths": ["/localhome/kka206/mcpat"],
+        },
+      ],
+    },
   ],
   "git_panel": {
     "tree_view": true,
