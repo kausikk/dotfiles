@@ -8,6 +8,7 @@
       "ctrl-tab": "pane::ActivateNextItem",
       "ctrl-shift-tab": "pane::ActivatePreviousItem",
       "ctrl-w": "pane::CloseActiveItem",
+      "ctrl-shift-`": ["workspace::NewTerminal", { "local": true }],
     },
   },
   {
@@ -27,8 +28,8 @@
       "space ]": "editor::GoToHunk",
       "space [": "editor::GoToPreviousHunk",
       "space g p": "editor::ToggleSelectedDiffHunks",
-      "space g b": "editor::ToggleGitBlame",
-      "space g r": "editor::RevertSelectedHunks",
+      "space g b": "git::Blame",
+      "space g r": "git::Restore",
       "j": ["vim::Down", { "display_lines": true }],
       "k": ["vim::Up", { "display_lines": true }],
       "shift-h": [
